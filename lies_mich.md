@@ -67,7 +67,7 @@ Werden die Parameter nicht oder in der falschen Reihenfolgen eingetragen, könne
 Sollten die oben aufgelisteten Parameter bereits vorhanden sein. Müssen sechs andere Parameter zwischen 31 und 5000 gewählt werden und die Routine umgeschrieben werden.
 
 Optionale Subroutinen:
-- go_to_g30.ngc -- Die original Routine fährt bis auf den Taster runter. Kollisionsgefahr!! Die neue Routine bleibt über dem Taster stehen (G53 Z0).
+- go_to_g30.ngc -- Die original Routine fährt bis auf den Taster runter. ***Kollisionsgefahr!!*** Die neue Routine bleibt über dem Taster stehen (G53 Z0).
 - M600.ngc -- Subroutine zum Aufruf der Werkzeugvermessung aus dem CNC Programm heraus.
 	In der ".ini" unter [RS274NGS] folgendes eintragen:
 	REMAP=M600 modalgroup=6 ngc=m600
