@@ -44,7 +44,7 @@ V3.0 	- tool_touch_prog.ngc - Routine in die "tool_touch_off.ngc" Routine versch
 	- #<spindle_stop_m> zur Auswahl des M-Befehls zum stoppen der Spindel (5 / 500).
 
 ### Anmerkungen und Hinweise
-Die Routinen wurden mit den Versionen LinuxCNC 2.8 und Probe Basich ??? getestet.
+Die Routinen wurden mit den Versionen LinuxCNC 2.8 und Probe Basic 0.3.8 getestet.
 Bei anderen Versionsständen können unter Umständen Unterschiede im Ablauf statt finden. 
 Die Funktionen der Routine sollten mit verminderter Geschwindigkeit getestet werden, bevor die Routine im Fertigungseinsatz genutzt wird.
 
