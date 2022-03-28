@@ -1,0 +1,10 @@
+o<m600> sub
+;Subprogram to start the "tool_touch_off" subroutine.
+
+
+o<tool_touch_off> call
+
+
+o<m600> endsub
+
+M2 (end program)

@@ -1,0 +1,12 @@
+o<go_to_g30> sub
+;The machine moves only to the X and Y coordinates.
+;G30 moves the machine to X, Y and Z. With the tool inserted, this leads to a collision
+
+G90
+G53 G0 Z0
+G53 G0 X#5181 Y#5182     ;Position of the touch plate in X and Y
+;G30
+
+o<go_to_g30> endsub
+
+M2

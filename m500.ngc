@@ -1,0 +1,19 @@
+o<m500> sub
+;Unterprogramm zum stoppen der Spindel mit anschließender Verzögerung, 
+;für Spindeln ohne Rückmeldung.
+;Die Verzögerung wird nur genutzt wenn die Spindel vorher an war.
+;Stand: 2021-06-18
+
+#<spindle_on> = #<_spindle_on>
+
+M5
+;(debug, Spindel: #<spindle_on>)
+o<100> if [#<spindle_on> EQ 1]
+;    (msg, Spindel ist an)
+    G4 P4.0
+o<100> endif
+;(msg, Spindel AUS)
+
+o<m500> endsub
+
+M2 (end program)

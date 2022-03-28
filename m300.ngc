@@ -1,0 +1,11 @@
+o<m300> sub
+;Unterprogramm zum starten der Spindel mit anschließender Verzögerung, 
+;für Spindeln ohne Rückmeldung
+;Stand: 2021-06-18
+
+M3
+G4 P4.0
+;(msg, Spindel AN)
+o<m300> endsub
+
+M2 (end program)
