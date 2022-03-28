@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 ***Use the subroutines at your own risk!***
 ***The routines "tool_touch_off.ngc" and "go_to_g30.ngc" are based on the routines of the same name that came with Probe Basic.***
-***The German version of this document is called "lies_mich.txt" and it is in the same folder.***
+***The German version of this document is called "lies_mich.md" and it is in the same folder.***
 
 ## Contents
 - Last changes
