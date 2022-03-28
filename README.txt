@@ -44,7 +44,7 @@ There is also a pause when changing to the same tool.
 - #<spindle_stop_m> to select the M command to stop the spindle (5 / 500).
 
 ### Notes and Notices
-The routines were tested with LinuxCNC 2.8 and Probe Basich ??? .
+The routines were tested with LinuxCNC 2.8 and Probe Basic 0.3.8 .
 With other versions, there may be differences in the process.
 The functions of the routine should be tested at reduced speed before using the routine in production.
 
