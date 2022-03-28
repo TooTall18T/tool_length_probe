@@ -22,12 +22,12 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 ***The German version of this document is called "lies_mich.txt" and it is in the same folder.***
 
 ## Contents
-Last changes
-Notes and Notices
-Installation
-Set up
-Flow of the routine
-Further information
+- Last changes
+- Notes and Notices
+- Installation
+- Set up
+- Flow of the routine
+- Further information
 
 
 
