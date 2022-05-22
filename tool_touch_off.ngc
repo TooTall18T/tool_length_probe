@@ -1,7 +1,7 @@
 o<tool_touch_off> sub
 
 ;Subprogram for manuel tool change with measurement of the tool.
-;Version date: 2022-03-17
+;Version date: 2022-05-22
 ;Version: 3.0
 
 ;This subprogram is based on the original subprogram "tool_touch_off.ngc" that came with Probe Basic.
@@ -34,7 +34,7 @@ o<tool_touch_off> sub
 o<10> if [#<debug_mode> GT 0]
   (debug, logfile.txt created in the configuration folder)
   (logopen,logfile.txt)
-  (log, Log file for the subroutine "tool_touch_off.ngc" Version 2.3 from TooTall18T)
+  (log, Log file for the subroutine "tool_touch_off.ngc" Version 3.0 from TooTall18T)
   (log, Fast: #<fast_probe_fr>)
   (log, FAST.var: #4000)
   (log, Slow: #<slow_probe_fr>)
@@ -49,6 +49,7 @@ o<10> if [#<debug_mode> GT 0]
   (log, RETRACT.var: #4005)
   (log, Back: #<go_back_to_start_pos>)
   (log, tool touch z coodrs: #5183)
+  (log, tool table: #<use_tool_table>)
   (log, tool min dis: #<tool_min_dis>)
   (log, Brake: #<brake_after_M600>)
 
@@ -76,8 +77,6 @@ o<80> if [#<fast_probe_fr> EQ 0 AND #<slow_probe_fr> EQ 0 AND #<z_max_travel> EQ
 o<80> else
   #<auto> = 0
   o<81> if [#<fast_probe_fr> NE #4000 OR #<slow_probe_fr> NE #4001 OR #<z_max_travel> NE #4002 OR #<xy_max_travel> NE #4003 OR #<spindle_zero_height> NE#4004 OR #<retract_distance> NE #4005]
-    ;Sollte ein Wert über die Oberfläche geändert worden sein, so wird dieser beim auslösen der manuellen Werkzeugvermessung in die Variablendatei gespeichert.
-    ;Werden die Werte neu gespeichert, wird keine Vermessung ausgeführt, nur eine Meldung (Neue Parameter gespeichert!) angezeigt.
     ;If a value has been changed via the user interface, this is saved in the variable file when [TOUCH OF CURRENT TOOL] is triggered.
     ;If the values are saved, no measurement is carried out, only a message (New parameters saved!) is displayed.
     #4000 = #<fast_probe_fr>
