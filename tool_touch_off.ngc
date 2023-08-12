@@ -47,6 +47,9 @@ o<10> if [#<debug_mode> GT 0]
   (log, SPINDLE ZERO HEIGHT.var: #4004)
   (log, Retract: #<retract_distance>)
   (log, RETRACT.var: #4005)
+  (log, Min XYZ: #<_ini[AXIS_X]MIN_LIMIT> #<_ini[AXIS_Y]MIN_LIMIT> #<_ini[AXIS_Z]MIN_LIMIT>)
+  (log, Max XYZ: #<_ini[AXIS_X]MAX_LIMIT> #<_ini[AXIS_Y]MAX_LIMIT> #<_ini[AXIS_Z]MAX_LIMIT>)
+  (log, Pos XYZ: #5420 #5421 #5422)
   (log, Back: #<go_back_to_start_pos>)
   (log, tool touch z coodrs: #5183)
   (log, tool table: #<use_tool_table>)
@@ -226,7 +229,7 @@ o<130> endif
 ;-17- Define new tool length
 (define new tool length offset parameters)
 #<new_tool_length_offset> = [ABS[[#<tool_touch_z_coords>*[-1]] + #5063]-#<offset_z>]
-(debug, neue Werkzeuglänge: #<new_tool_length_offset>)
+(debug, New tool length: #<new_tool_length_offset>)
 o<20> if [#<debug_mode> GT 0]
   (log, New tool length: #<new_tool_length_offset>)
 o<20>endif 
