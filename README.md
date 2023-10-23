@@ -1,5 +1,5 @@
 # Explanation of using the tool length probe subroutine for Probe Basic from TooTall18T .
-Version 3.0 as of 17.03.2022<br>
+Version 3.1.0 as of 23.10.2023<br>
 https://github.com/TooTall18T/tool_length_probe
 
 Copyright (C) 2022 TooTall18T
@@ -17,10 +17,14 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+> [!IMPORTANT]
+> Use the subroutines at your own risk!
+> The routines "tool_touch_off.ngc" and "go_to_g30.ngc" are based on the routines of the same name that came with Probe Basic.
 
-***Use the subroutines at your own risk!***
-***The routines "tool_touch_off.ngc" and "go_to_g30.ngc" are based on the routines of the same name that came with Probe Basic.***
-***The German version of this document is called "lies_mich.md" and it is in the same folder.***
+> [!NOTE]
+> The German version of this document is called "[lies_mich.md](lies_mich.md)" and it is in the same folder.
+
+
 
 ## Contents
 - Last changes
@@ -33,6 +37,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
 ## Last change:
+V3.1.0
+- readme.md / lies_mich.md - Updated the manual.
+
 V3.0 
 - tool_touch_prog.ngc - Routine moved to "tool_touch_off.ngc" routine.
 - tool_touch_off.ngc - save the required parameters from the interface to the variable file (4000-4005). Parameters no longer need to be written to the files.
@@ -49,13 +56,15 @@ The routines were tested with LinuxCNC 2.8 and Probe Basic 0.3.8 .
 With other versions, there may be differences in the process.
 The functions of the routine should be tested at reduced speed before using the routine in production.
 
-Specifications such as "#<tool_min_dis>" are variables from the routine. These may have to be adjusted within the routine.
+> [!NOTE]
+> Specifications such as "**#<tool_min_dis>**" are variables from the routine. These may have to be adjusted within the routine.
 
 ## Installation
 Back up files that are exchanged and/or edited beforehand.
 Only the "tool_touch_off.ngc" file is required to use the measurement routine.
 All other files are optional.
-***It is recommended to replace the "go_to_g30.ngc" routine as well. Danger of collision!***
+> [!WARNING]
+>It is recommended to replace the "go_to_g30.ngc" routine as well. Danger of collision!
 
 Copy file(s) into the folder that is entered in the ".ini" under [RS274NGS] "SUBROUTINE_PATH" (subroutines).  
 Enter the following parameters in the ".var" file, which is stored in the ".ini" under "PARAMETER_FILE":  
@@ -106,15 +115,32 @@ After changing the parameters, [TOUCH OFF CURRENT TOOL] must be pressed once aga
 Adjust the following parameters under "-2- Fixed parameters" in the "tool_touch_off.ngc" file:  
 | Parameter | Discription  |
 | -------  | -----  |
+| ` MAIN` |
 | #<debug_mode>  | The debug mode for troubleshooting is set here. 0=OFF, 1=log file . File "logfile.txt" in the config folder of the machine. The file is overwritten each time. |
 | #<use_tool_table>  | With "1" the tool table is used and with a known tool (length >0) the tool for the measurement is positioned lower.|
 | #<tool_min_dis>  | Distance between tool probe and old tool length. Only used in connection with tool table.|
+| ` OPTIONS: GENERALLY ` |
 | #<brake_after_M600>  | If ">0" wait for confirmation that the program may continue to work after the measurement. 1 = M00, 2 = M01 . See "Case 1.2 and 2.2"|
 | #<go_back_to_start_pos>  | With "1" the machine drives back to the position where the routine was started during automatic measurement.|
 | #<spindle_stop_m>  | M-code number to stop the spindle. Default 5 (M5), optional 500 (M500/m500.ngc).|
+| ;TODO: Anzahl wiederholungen | |
+| ` OPTIONS: TOOL DIAMETER ` |
+| #<offset_diameter> | Tool diameter from when a offset should take place. 0=OFF |
+| #<offset_direction> | Direction of the offset. 0=X+ 1=X- 2=Y+ 3=Y- |
+| #<offset_value> | How much of the tool diameter should move in percent. |
+| ` OPTIONS: TOOL EDGE-FINDER ` |
+| #<finder_number> | Tool number of the edge-finder |
+| #<finder_touch_x_coords> | x coordinate for the z reference position in G53 |
+| #<finder_touch_y_coords> | y coordinate for the z reference position in G53 |
+| #<finder_diff_z> | Differenz between tool touch button and reference surface. |
+| ` OPTIONS: PRE CHANGE POSITION ` |
+| #<tool_change_x> | To change the position where to change the tool befor measuring. If not "0" is G53 X-position |
+| #<tool_change_y> | To change the position where to change the tool befor measuring. If not "0" is G53 Y-position |
 
 
-During the first measurements, the machine speed should be reduced in order not to damage anything in the event of incorrect settings.
+
+> [!IMPORTANT]
+> During the first measurements, the machine speed should be reduced in order not to damage anything in the event of incorrect settings.
 
 
 ## Flow of the routine
@@ -129,7 +155,7 @@ In this way, the parameters do not have to be entered again manually in the M600
 
 ### Case 2.1 and 3.1:  
 The Z-axis moves up to the machine zero point, if necessary switches off the spindle (stop function selectable via "#<spindle_stop_m>") and then moves to the tool probe.  
-The fixed parameter "#<use_tool_table> can be used to select whether the tool table is to be used (1). If the tool table is not used (0), the machine always makes one "Remeasurement" (Case 2.1).
+The fixed parameter "#<use_tool_table>" can be used to select whether the tool table is to be used (1). If the tool table is not used (0), the machine always makes one "Remeasurement" (Case 2.1).
 Proceeding to case 2.1 or 3.1.
 
 
@@ -186,10 +212,12 @@ Is the selected tool already in the machine? The message "Same tool" is output.
 
 
 ### Case 4.2 Change to T0:  
-***A change at the end of the CNC program using "M600 T0" can cause LinuxCNC to switch from G43 to G49 if the program aborts!  
-If the program is restarted, it may not switch back to G43. Danger of collision!  
-The case only serves to ensure that a measurement is not accidentally started with tool 0.***
+> [!WARNING]
+> A change at the end of the CNC program using "M600 T0" can cause LinuxCNC to switch from G43 to G49 if the program aborts!  
+> If the program is restarted, it may not switch back to G43. Danger of collision!  
+> The case only serves to ensure that a measurement is not accidentally started with tool 0.
 
 
 ## Further information:  
-The "xy max travel" parameter is not used in the routine.
+> [!NOTE]
+> The "xy max travel" parameter is not used in the routine.
