@@ -1,8 +1,8 @@
 # Erklärung zur Nutzung der Werkzeugvermessungsroutine für Probe Basic von TooTall18T .
-Version 3.0 stand 17.03.2022<br>
+Version 3.1.0 stand 23.10.2022<br>
 https://github.com/TooTall18T/tool_length_probe
 
-Copyright (C) 2022  TooTall18T
+Copyright (C) 2022 TooTall18T
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,9 +17,9 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
-***Die Benutzung der Subroutinen geschieht auf eigene Gefahr!***
-***Die Routinen "tool_touch_off.ngc" und "go_to_g30.ngc" basieren auf den gleichnamigen Routinen die bei Probe Basic dabei waren.***
+> [!IMPORTANT]
+> Die Benutzung der Subroutinen geschieht auf eigene Gefahr!
+> Die Routinen "tool_touch_off.ngc" und "go_to_g30.ngc" basieren auf den gleichnamigen Routinen die bei Probe Basic dabei waren.
 
 
 ## Inhalt
@@ -33,6 +33,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 ## Letzte Änderung:
+V3.1.0
+- readme.md / lies_mich.md - Anleitung überarbeitet.
+
 V3.0  
 - tool_touch_prog.ngc - Routine in die "tool_touch_off.ngc" Routine verschoben.  
 - tool_touch_off.ngc  - Speichern der erforderlichen Parameter aus der Oberfläche in der Variablendatei (4000-4005). Parameter müssen nicht mehr in die Dateien geschrieben werden.  
@@ -47,13 +50,15 @@ Die Routinen wurden mit den Versionen LinuxCNC 2.8 und Probe Basic 0.3.8 geteste
 Bei anderen Versionsständen können unter Umständen Unterschiede im Ablauf statt finden.  
 Die Funktionen der Routine sollten mit verminderter Geschwindigkeit getestet werden, bevor die Routine im Fertigungseinsatz genutzt wird.
 
-Bei Angaben wie "#<tool_min_dis>" handelt es sich um Variablen aus der Routine. Diese müssen ggf. innerhalb der Routine angepasst werden.
+> [!NOTE]
+> Bei Angaben wie "**#<tool_min_dis>**" handelt es sich um Variablen aus der Routine. Diese müssen ggf. innerhalb der Routine angepasst werden.
 
 ## Installation
 Dateien die ausgetauscht und/oder bearbeitet werden vorher sichern.  
 Zur Nutzung der Vermessungsroutine wird nur die Datei "tool_touch_off.ngc" benötigt.  
 Alle anderen Dateien sind optional.  
-***Es ist zu empfehlen die Routine "go_to_g30.ngc" auch zu ersetzen. Kollisionsgefahr!***
+> [!WARNING]
+> Es ist zu empfehlen die Routine "go_to_g30.ngc" auch zu ersetzen. Kollisionsgefahr!
 
 Datei(en) in den Ordner kopieren der in der ".ini" unter [RS274NGS] "SUBROUTINE_PATH" eingetragen ist (subroutines).  
 In die ".var" Datei, welche in der ".ini" unter "PARAMETER_FILE" hinterlegt ist, die folgenden Parameter eintragen:  
@@ -111,8 +116,8 @@ In der Datei "tool_touch_off.ngc" die folgenden Parameter unter "-2- Fixed param
 | #<go_back_to_start_pos>  | Bei "1" fährt die Maschine, bei der Automatischen Vermessung, zur Position zurück an der die Routine gestartet wurde. |
 | #<spindle_stop_m>  | M-Befehlnummer zum stoppen der Spindel. Standard 5 (M5), optional 500 (M500 / m500.ngc). |
 
-
-Bei den ersten Vermessungen sollte die Maschinengeschwindigkeit verringert werden um ggf. bei fehlerhaften Einstellungen nichts zu beschädigen.
+> [!IMPORTANT]
+> Bei den ersten Vermessungen sollte die Maschinengeschwindigkeit verringert werden um ggf. bei fehlerhaften Einstellungen nichts zu beschädigen.
 
 
 ## Ablauf der Routine
@@ -126,7 +131,7 @@ So müssen die Parameter nicht nochmal händisch in die M600 Subroutine eingetra
 
 ### Fall 2.1 und 3.1:
 Die Z-Achse fährt auf Maschinen Nullpunkt hoch, schaltet ggf. die Spindel aus (über "#<spindle_stop_m>" Stoppfunktion wählbar) und anschließend über den Werkzeugtaster.  
-Über den festen Parameter "#<use_tool_table> kann gewählt werden, ob die Werkzeugtabelle genutzt wird (1). Wird die Werkzeugtabelle nicht genutzt (0), macht die Maschine immer eine "Neuvermessung" (Fall 2.1).  
+Über den festen Parameter "#<use_tool_table>" kann gewählt werden, ob die Werkzeugtabelle genutzt wird (1). Wird die Werkzeugtabelle nicht genutzt (0), macht die Maschine immer eine "Neuvermessung" (Fall 2.1).  
 Fortfahrend mit Fall 2.1 oder 3.1 .
 
 
@@ -184,10 +189,12 @@ Ist das gewählte Werkzeug bereits in der Maschine. Wird die Meldung "Same tool"
 
 
 ### Fall 4.2 Wechsel auf T0 :
-***Ein Wechsel am Ende des CNC Programms mittels "M600 T0", kann bei Programmabbrüchen dazu führen, dass LinuxCNC von G43 auf G49 umschaltet!
-Wenn das Programm erneut gestartet wird, kann es sein, dass nicht wieder auf G43 umgeschaltet wird. Kollisionsgefahr!
-Der Fall dient nur dazu, dass nicht versehentlich mit Werkzeug 0 eine Vermessung gestartet wird.***
+> [!WARNING]
+> Ein Wechsel am Ende des CNC Programms mittels "M600 T0", kann bei Programmabbrüchen dazu führen, dass LinuxCNC von G43 auf G49 umschaltet!
+> Wenn das Programm erneut gestartet wird, kann es sein, dass nicht wieder auf G43 umgeschaltet wird. Kollisionsgefahr!
+> Der Fall dient nur dazu, dass nicht versehentlich mit Werkzeug 0 eine Vermessung gestartet wird.
 
 
 ## Weitere Informationen:
-Der Parameter "xy max travel" wird in der Routine nicht verwendet.
+> [!NOTE]
+> Der Parameter "xy max travel" wird in der Routine nicht verwendet.
