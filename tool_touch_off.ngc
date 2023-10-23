@@ -3,6 +3,7 @@ o<tool_touch_off> sub
 ;Subprogram for manuel tool change with measurement of the tool.
 ;Version date: 2022-05-22
 ;Version: 3.0
+;https://github.com/TooTall18T/tool_length_probe
 
 ;This subprogram is based on the original subprogram "tool_touch_off.ngc" that came with Probe Basic.
 
