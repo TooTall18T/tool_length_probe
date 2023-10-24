@@ -1,5 +1,5 @@
 # Erklärung zur Nutzung der Werkzeugvermessungsroutine für Probe Basic von TooTall18T .
-Version 3.1.0 stand 23.10.2022<br>
+Version 3.1.0 stand 22.10.2022<br>
 https://github.com/TooTall18T/tool_length_probe
 
 Copyright (C) 2022 TooTall18T
@@ -35,6 +35,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ## Letzte Änderung:
 V3.1.0
 - readme.md / lies_mich.md - Anleitung überarbeitet.
+- tool_touch_off.ngc:
+	- Durchmesserversatz hinzugefügt. Ab einem eingestellten Durchmesser versetzt die Maschine einen Prozentualenwert des Fräsers, um auch Fräser mit größerem Durchmesser messen zu können.
+	- Werkzeug Kantentaster hinzugefügt. Ein Werkzeug kann als 3D/Kantentaster eingestellt werden, um an einer alternativen Position vermessen zu werden.
+    - Alternative Werkzeugwechselposition hinzugefügt. Die Maschine bewegt sich an eine Vorabposition, an der der Fräser gewechselt werden kann. Danach fährt die Maschine zum Werkzeuglängentaster.
 
 V3.0  
 - tool_touch_prog.ngc - Routine in die "tool_touch_off.ngc" Routine verschoben.  
