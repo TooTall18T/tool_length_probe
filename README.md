@@ -1,5 +1,5 @@
 # Explanation of using the tool length probe subroutine for Probe Basic from TooTall18T .
-Version 3.1.0 as of 23.10.2023<br>
+Version 3.1.0 as of 24.10.2023<br>
 https://github.com/TooTall18T/tool_length_probe
 
 Copyright (C) 2022 TooTall18T
@@ -39,6 +39,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 ## Last change:
 V3.1.0
 - readme.md / lies_mich.md - Updated the manual.
+- tool_touch_off.ngc:
+    - Added tool diameter offset. From a set diameter, the machine offsets by a percentage value in order to be able to measure the length of cutters with larger diameters.
+    - Added tool edge-finder. A tool can be set as a 3D/edge finder to be measured at an alternative position.
+    - Added tool change position. The machine moves to a pre position for tool changing. After that, the machine moves to the touch probe position
 
 V3.0 
 - tool_touch_prog.ngc - Routine moved to "tool_touch_off.ngc" routine.
