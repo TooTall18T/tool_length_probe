@@ -1,5 +1,5 @@
 # Erklärung zur Nutzung der Werkzeugvermessungsroutine für Probe Basic von TooTall18T .
-Version 3.0 stand 17.03.2022<br>
+Version 3.0.1 stand 29.10.2023<br>
 https://github.com/TooTall18T/tool_length_probe
 
 Copyright (C) 2022  TooTall18T
@@ -33,6 +33,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 ## Letzte Änderung:
+V3.0.1
+- tool_touch_off.ngc
+  - IF Abfragen für log Befehle entfernt.
+  - Logclose Befehle hinzugefügt.
+  - Von "o<tool_touch_off.ngc> endsub" nach "o<tool_touch_off.ngc> return" geändert und M2 entfernt.
 V3.0  
 - tool_touch_prog.ngc - Routine in die "tool_touch_off.ngc" Routine verschoben.  
 - tool_touch_off.ngc  - Speichern der erforderlichen Parameter aus der Oberfläche in der Variablendatei (4000-4005). Parameter müssen nicht mehr in die Dateien geschrieben werden.  
