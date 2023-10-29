@@ -38,6 +38,7 @@ V3.0.1
   - Delete if statments for log commands.
   - Added Logclose commands
   - Change "o<tool_touch_off.ngc> endsub" to "o<tool_touch_off.ngc> return" and delete M2.
+  - 
 V3.0 
 - tool_touch_prog.ngc - Routine moved to "tool_touch_off.ngc" routine.
 - tool_touch_off.ngc - save the required parameters from the interface to the variable file (4000-4005). Parameters no longer need to be written to the files.
