@@ -1,5 +1,5 @@
 # Explanation of using the tool length probe subroutine for Probe Basic from TooTall18T .
-Version 3.0 as of 17.03.2022<br>
+Version 3.0.1 as of 29.10.2023<br>
 https://github.com/TooTall18T/tool_length_probe
 
 Copyright (C) 2022 TooTall18T
@@ -33,6 +33,11 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
 ## Last change:
+V3.0.1
+- tool_touch_off.ngc
+  - Delete if statments for log commands.
+  - Added Logclose commands
+  - Change "o<tool_touch_off.ngc> endsub" to "o<tool_touch_off.ngc> return" and delete M2.
 V3.0 
 - tool_touch_prog.ngc - Routine moved to "tool_touch_off.ngc" routine.
 - tool_touch_off.ngc - save the required parameters from the interface to the variable file (4000-4005). Parameters no longer need to be written to the files.
