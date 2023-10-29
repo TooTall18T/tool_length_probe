@@ -38,6 +38,7 @@ V3.0.1
   - IF Abfragen für log Befehle entfernt.
   - Logclose Befehle hinzugefügt.
   - Von "o<tool_touch_off.ngc> endsub" nach "o<tool_touch_off.ngc> return" geändert und M2 entfernt.
+
 V3.0  
 - tool_touch_prog.ngc - Routine in die "tool_touch_off.ngc" Routine verschoben.  
 - tool_touch_off.ngc  - Speichern der erforderlichen Parameter aus der Oberfläche in der Variablendatei (4000-4005). Parameter müssen nicht mehr in die Dateien geschrieben werden.  
