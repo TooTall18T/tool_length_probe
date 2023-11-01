@@ -24,9 +24,9 @@ o<tool_touch_off> sub
 
 
 ;-2- Fixed parameters
-#<debug_mode> = 1		                ;The debug mode for troubleshooting is set here. 0=OFF, 1=log file . File in the machine's config folder.
+#<debug_mode> = 0		    ;The debug mode for troubleshooting is set here. 0=OFF, 1=log file . File in the machine's config folder.
 #<use_tool_table> = 1               ;If "1" the machine uses the tool table for positioning the tool over the 
-#<tool_min_dis> = 6                 ;Distance, when measuring a known tool again, between the touch plate and the tool.
+#<tool_min_dis> = 20                ;Distance, when measuring a known tool again, between the touch plate and the tool.
 #<brake_after_M600> = 1	      	    ;If ">0" wait for confirmation that the program may continue to work after the measurement. 1=M00, 2=M01
 #<go_back_to_start_pos> = 1         ;If "1" the machine returns to the position where the routine was started.
 #<spindle_stop_m> = 5               ;M-Code number to stop the spindle default 5 (M5), option 500 (M500).
