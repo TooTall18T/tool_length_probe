@@ -1,5 +1,5 @@
 # Explanation of using the tool length probe subroutine for Probe Basic from TooTall18T .
-Version 3.0 as of 17.03.2022<br>
+Version 3.0.1 as of 01.11.2023<br>
 https://github.com/TooTall18T/tool_length_probe
 
 Copyright (C) 2022 TooTall18T
@@ -18,9 +18,14 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
-***Use the subroutines at your own risk!***
-***The routines "tool_touch_off.ngc" and "go_to_g30.ngc" are based on the routines of the same name that came with Probe Basic.***
-***The German version of this document is called "lies_mich.md" and it is in the same folder.***
+> [!IMPORTANT]
+> Use the subroutines at your own risk!
+
+> [!NOTE]
+> The routines "tool_touch_off.ngc" and "go_to_g30.ngc" are based on the routines of the same name that came with Probe Basic.
+
+> [!NOTE]
+> The German version of this document is called "[lies_mich.md](lies_mich.md)" and it is in the same folder.
 
 ## Contents
 - Last changes
@@ -33,6 +38,15 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
 ## Last change:
+V3.0.1
+- tool_touch_off.ngc
+  - Delete if statments for log commands.
+  - Added Logclose commands
+  - Added log END markings
+  - Change "o<tool_touch_off.ngc> endsub" to "o<tool_touch_off.ngc> return" and delete M2.
+- readme.md / lies_mich.md
+  - Update Notes/Warning/Important block style.
+    
 V3.0 
 - tool_touch_prog.ngc - Routine moved to "tool_touch_off.ngc" routine.
 - tool_touch_off.ngc - save the required parameters from the interface to the variable file (4000-4005). Parameters no longer need to be written to the files.
@@ -49,13 +63,15 @@ The routines were tested with LinuxCNC 2.8 and Probe Basic 0.3.8 .
 With other versions, there may be differences in the process.
 The functions of the routine should be tested at reduced speed before using the routine in production.
 
-Specifications such as "#<tool_min_dis>" are variables from the routine. These may have to be adjusted within the routine.
+> [!NOTE]
+> Specifications such as "**#<tool_min_dis>**" are variables from the routine. These may have to be adjusted within the routine.
 
 ## Installation
 Back up files that are exchanged and/or edited beforehand.
 Only the "tool_touch_off.ngc" file is required to use the measurement routine.
 All other files are optional.
-***It is recommended to replace the "go_to_g30.ngc" routine as well. Danger of collision!***
+> [!WARNING]
+>It is recommended to replace the "go_to_g30.ngc" routine as well. Danger of collision!
 
 Copy file(s) into the folder that is entered in the ".ini" under [RS274NGS] "SUBROUTINE_PATH" (subroutines).  
 Enter the following parameters in the ".var" file, which is stored in the ".ini" under "PARAMETER_FILE":  
@@ -114,7 +130,8 @@ Adjust the following parameters under "-2- Fixed parameters" in the "tool_touch_
 | #<spindle_stop_m>  | M-code number to stop the spindle. Default 5 (M5), optional 500 (M500/m500.ngc).|
 
 
-During the first measurements, the machine speed should be reduced in order not to damage anything in the event of incorrect settings.
+> [!IMPORTANT]
+> During the first measurements, the machine speed should be reduced in order not to damage anything in the event of incorrect settings.
 
 
 ## Flow of the routine
@@ -186,10 +203,12 @@ Is the selected tool already in the machine? The message "Same tool" is output.
 
 
 ### Case 4.2 Change to T0:  
-***A change at the end of the CNC program using "M600 T0" can cause LinuxCNC to switch from G43 to G49 if the program aborts!  
-If the program is restarted, it may not switch back to G43. Danger of collision!  
-The case only serves to ensure that a measurement is not accidentally started with tool 0.***
+> [!WARNING]
+> A change at the end of the CNC program using "M600 T0" can cause LinuxCNC to switch from G43 to G49 if the program aborts!  
+> If the program is restarted, it may not switch back to G43. Danger of collision!  
+> The case only serves to ensure that a measurement is not accidentally started with tool 0.
 
 
 ## Further information:  
-The "xy max travel" parameter is not used in the routine.
+> [!NOTE]
+> The "xy max travel" parameter is not used in the routine.
