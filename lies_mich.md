@@ -1,5 +1,5 @@
 # Erklärung zur Nutzung der Werkzeugvermessungsroutine für Probe Basic von TooTall18T .
-Version 3.0.1 stand 29.10.2023<br>
+Version 3.0.1 stand 01.11.2023<br>
 https://github.com/TooTall18T/tool_length_probe
 
 Copyright (C) 2022  TooTall18T
@@ -18,8 +18,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-***Die Benutzung der Subroutinen geschieht auf eigene Gefahr!***
-***Die Routinen "tool_touch_off.ngc" und "go_to_g30.ngc" basieren auf den gleichnamigen Routinen die bei Probe Basic dabei waren.***
+> [!IMPORTANT]
+> Die Benutzung der Subroutinen geschieht auf eigene Gefahr!
+
+> [!NOTE]
+> Die Routinen "tool_touch_off.ngc" und "go_to_g30.ngc" basieren auf den gleichnamigen Routinen die bei Probe Basic dabei waren.
 
 
 ## Inhalt
@@ -37,7 +40,10 @@ V3.0.1
 - tool_touch_off.ngc
   - IF Abfragen für log Befehle entfernt.
   - Logclose Befehle hinzugefügt.
+  - Log END Markierungen eingefügt.
   - Von "o<tool_touch_off.ngc> endsub" nach "o<tool_touch_off.ngc> return" geändert und M2 entfernt.
+- readme.md / lies_mich.md
+	- Ansicht der Notes/Warning/Important Blöcke geändert.
 
 V3.0  
 - tool_touch_prog.ngc - Routine in die "tool_touch_off.ngc" Routine verschoben.  
@@ -53,13 +59,15 @@ Die Routinen wurden mit den Versionen LinuxCNC 2.8 und Probe Basic 0.3.8 geteste
 Bei anderen Versionsständen können unter Umständen Unterschiede im Ablauf statt finden.  
 Die Funktionen der Routine sollten mit verminderter Geschwindigkeit getestet werden, bevor die Routine im Fertigungseinsatz genutzt wird.
 
-Bei Angaben wie "#<tool_min_dis>" handelt es sich um Variablen aus der Routine. Diese müssen ggf. innerhalb der Routine angepasst werden.
+> [!NOTE]
+> Bei Angaben wie "**#<tool_min_dis>**" handelt es sich um Variablen aus der Routine. Diese müssen ggf. innerhalb der Routine angepasst werden.
 
 ## Installation
 Dateien die ausgetauscht und/oder bearbeitet werden vorher sichern.  
 Zur Nutzung der Vermessungsroutine wird nur die Datei "tool_touch_off.ngc" benötigt.  
 Alle anderen Dateien sind optional.  
-***Es ist zu empfehlen die Routine "go_to_g30.ngc" auch zu ersetzen. Kollisionsgefahr!***
+> [!WARNING]
+> Es ist zu empfehlen die Routine "go_to_g30.ngc" auch zu ersetzen. Kollisionsgefahr!
 
 Datei(en) in den Ordner kopieren der in der ".ini" unter [RS274NGS] "SUBROUTINE_PATH" eingetragen ist (subroutines).  
 In die ".var" Datei, welche in der ".ini" unter "PARAMETER_FILE" hinterlegt ist, die folgenden Parameter eintragen:  
@@ -118,7 +126,8 @@ In der Datei "tool_touch_off.ngc" die folgenden Parameter unter "-2- Fixed param
 | #<spindle_stop_m>  | M-Befehlnummer zum stoppen der Spindel. Standard 5 (M5), optional 500 (M500 / m500.ngc). |
 
 
-Bei den ersten Vermessungen sollte die Maschinengeschwindigkeit verringert werden um ggf. bei fehlerhaften Einstellungen nichts zu beschädigen.
+> [!IMPORTANT]
+> Bei den ersten Vermessungen sollte die Maschinengeschwindigkeit verringert werden um ggf. bei fehlerhaften Einstellungen nichts zu beschädigen.
 
 
 ## Ablauf der Routine
@@ -190,10 +199,12 @@ Ist das gewählte Werkzeug bereits in der Maschine. Wird die Meldung "Same tool"
 
 
 ### Fall 4.2 Wechsel auf T0 :
-***Ein Wechsel am Ende des CNC Programms mittels "M600 T0", kann bei Programmabbrüchen dazu führen, dass LinuxCNC von G43 auf G49 umschaltet!
-Wenn das Programm erneut gestartet wird, kann es sein, dass nicht wieder auf G43 umgeschaltet wird. Kollisionsgefahr!
-Der Fall dient nur dazu, dass nicht versehentlich mit Werkzeug 0 eine Vermessung gestartet wird.***
+> [!WARNING]
+> Ein Wechsel am Ende des CNC Programms mittels "M600 T0", kann bei Programmabbrüchen dazu führen, dass LinuxCNC von G43 auf G49 umschaltet!
+> Wenn das Programm erneut gestartet wird, kann es sein, dass nicht wieder auf G43 umgeschaltet wird. Kollisionsgefahr!
+> Der Fall dient nur dazu, dass nicht versehentlich mit Werkzeug 0 eine Vermessung gestartet wird.
 
 
 ## Weitere Informationen:
-Der Parameter "xy max travel" wird in der Routine nicht verwendet.
+> [!NOTE]
+> Der Parameter "xy max travel" wird in der Routine nicht verwendet.
