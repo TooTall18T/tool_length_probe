@@ -1,7 +1,7 @@
 o<tool_touch_off> sub
 
 ;Subprogram for manuel tool change with measurement of the tool.
-;Version date: 2023-11-05
+;Version date: 2023-11-07
 ;Version: 3.1.0
 ;https://github.com/TooTall18T/tool_length_probe
 
@@ -25,7 +25,7 @@ o<tool_touch_off> sub
 
 ;-2- Fixed parameters
 ;-MAIN-
-#<debug_mode> = 0		    ;The debug mode for troubleshooting is set here. 0=OFF, 1=log file . File in the machine's config folder.
+#<debug_mode> = 0		                ;The debug mode for troubleshooting is set here. 0=OFF, 1=log file . File in the machine's config folder.
 #<use_tool_table> = 1               ;If "1" the machine uses the tool table for positioning the tool over the 
 #<tool_min_dis> = 20                ;Distance, when measuring a known tool again, between the touch plate and the tool.
 
@@ -34,7 +34,7 @@ o<tool_touch_off> sub
 #<brake_after_M600> = 1	      	    ;If ">0" wait for confirmation that the program may continue to work after the measurement. 1=M00, 2=M01
 #<go_back_to_start_pos> = 1         ;If "1" the machine returns to the position where the routine was started.
 #<spindle_stop_m> = 5               ;M-Code number to stop the spindle default 5 (M5), option 500 (M500).
-#<addreps> = 0                      ;Number of extra repetitions for fast probe.
+#<addreps> = 0                      ;TODO: Number of extra repetitions
 
 ;--Tool diameter--
 #<offset_diameter> = 0              ;Tool diameter from when a offset should take place. 0=OFF
@@ -87,7 +87,7 @@ o<10> if [#<debug_mode> GT 0]
   (log, Finder Y: #<finder_touch_y_coords> )
   (log, Finder diff: #<finder_diff_z>)
   (log, Change pos X: #<tool_change_x>)
-  (log, Change pos Y#<tool_change_y>)
+  (log, Change pos Y: #<tool_change_y>)
   (log, ============================)
 o<10>endif
 
@@ -204,7 +204,7 @@ o<200> do
   G53 G0 Z0       (move to z0 home position)
   #<offset_z> = #5422         ;Stores the offset of the current Z coordinate at G53 Z0 without tool offset.
   M#<spindle_stop_m>
-  o<106> if [#<auto> EQ 1 AND [#<tool_change_x> NE 0 OR #<tool_change_y> NE 0]]
+  o<106> if [[#<auto> EQ 1 OR #<fastprobefailed> EQ 1] AND [#<tool_change_x> NE 0 OR #<tool_change_y> NE 0]]
     ;Pre change position
     G53 G0 X#<tool_change_x> Y#<tool_change_y>
   o<106> elseif [#<finder_number> GT 0 AND #<tool_selected> EQ #<finder_number>]
@@ -217,23 +217,23 @@ o<200> do
   (log, Offset_Z: #<offset_z>)
 
 
-  ;-12- Tool change
+  ;-12- Stops at probe fail
+  ;If last probe failed, machine stops to reposition the tool. 
+  ;Switch to T0 to switch to the right tool in the next step.
+  o<204> if [#<fastprobefailed> EQ 1 ]
+    M61 Q0
+    (debug, Tool length offset probe failed! Attempts left: #<addreps> Reposition tool or cancel.)
+    (log, === Probe failed, Attempts left: #<addreps> ===)
+  o<204> endif
+
+
+  ;-13- Tool change
   M6 T#<tool_selected> 
   #<tool_length_old> = #5403                  ;Old tool length of the tool selected by T
   (log, Old tool length: #<tool_length_old>)
 
 
-  ;-13- Stops at probe fail
-  ;If last probe failed, machine stops to refit the tool. Press [CYCLE START] to repeat, or [STOP] to cancel.
-  o<203> if [#<fastprobefailed> EQ 1]
-    (debug, Tool Length Offset Probe Failed. Attempts left: #<addreps> Press [CYCLE START] to repeat, or [STOP] to cancel.)
-    (log, === Probe failed, Attempts left: #<addreps> ===)
-    M00
-  o<203> endif
-
-
   ;-14- Positioning for measuring
-  
   o<160> if [#<finder_number> GT 0 AND #<tool_selected> EQ #<finder_number>] 
     ;Edge-finder position
     G53 G0 X#<finder_touch_x_coords> Y#<finder_touch_y_coords>
@@ -283,7 +283,7 @@ o<200> do
   ;-16- Move to Z start position for length measurement
   G53 G0 Z#<probe_start_pos_z>
 
-
+  
   ;-17- Fast probe
   G91
   F #<fast_probe_fr>
@@ -292,7 +292,7 @@ o<200> do
   G90
   #<addreps> = [#<addreps> - 1]
   (log, Fast probe: #5063)
-
+  
 
   ;-18- Verify fast probe event was succesful
   o<201> if [#5070 NE 1]
