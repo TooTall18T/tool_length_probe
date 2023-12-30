@@ -1,12 +1,20 @@
 o<go_to_g30> sub
-;The machine moves only to the X and Y coordinates.
-;G30 moves the machine to X, Y and Z. With the tool inserted, this leads to a collision
+;Version date: 2023-12-30
+;The machine moves only to the X and Y coordinates. It uses the same pre position as the "tool_touch_off.ngc" if set there.
+;G30 moves the machine to X, Y and Z.
 
+;-Parameters
+#<tool_change_x> = #3006  ;set parameter in "tool_touch_off.ngc"
+#<tool_change_y> = #3007  ;set parameter in "tool_touch_off.ngc"
+
+M73 (save caller state in current call context, restore on return or endsub)
 G90
 G53 G0 Z0
-G53 G0 X#5181 Y#5182     ;Position of the touch plate in X and Y
-;G30
-
+o<106> if [#<tool_change_x> NE 0 OR #<tool_change_x> NE 0]
+  G53 G0 X#<tool_change_x> Y#<tool_change_y>
+o<106> else
+  G53 G0 X#5181 Y#5182     ;Position of the touch plate in X and Y
+o<106> endif
 o<go_to_g30> endsub
 
 M2
