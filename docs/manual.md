@@ -40,6 +40,7 @@ https://github.com/TooTall18T/tool_length_probe
 
 > [!NOTE]
 > Specifications such as "**#<tool_min_dis>**" are variables from the routine. These may have to be adjusted at the beginning of the routine at "-1- Fixed parameters".
+
 ---
 ## Installation
 Back up files that are exchanged and/or edited beforehand.
@@ -78,7 +79,8 @@ REMAP=M300 modalgroup=7 ngc=m300
 
 - M500.ngc -- Subroutine to stop a tool spindle without feedback. If the spindle was on, the CNC program pauses for an adjustable time (P4.0 = 4s).  
 Enter the following in the ".ini" under "[RS274NGS]":  
-REMAP=M500 modalgroup=7 ngc=m500  
+REMAP=M500 modalgroup=7 ngc=m500
+
 ---
 ## Set up
 ![G30-position](./images/parameter_1.jpg)  
@@ -239,6 +241,7 @@ If "#< addreps>" and "#< lasttry>" are each set to "1" when the tool table is us
 
 #### Edge-finder
 If it is not possible to measure a 3D/edge-finder using the tool probe. Can an alternative survey position be defined for this. The height difference between the measurement position and the tool probe must be determined and entered in "#<finder_diff_z>". The sign indicates the difference in the axial direction. "-" = lower than tool probe, "+" = higher than tool probe.
+
 ---
 ## Further information:  
 > [!NOTE]
