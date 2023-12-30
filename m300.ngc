@@ -1,11 +1,11 @@
 o<m300> sub
-;Unterprogramm zum starten der Spindel mit anschließender Verzögerung, 
-;für Spindeln ohne Rückmeldung
-;Stand: 2021-06-18
+;Subroutine to start a spindle and pause for a certain time.
+;For spindles without feedback.
+;Stand: 2023-12-30
 
 M3
 G4 P4.0
-;(msg, Spindel AN)
+;(msg, Spindle ON)
 o<m300> endsub
 
 M2 (end program)
