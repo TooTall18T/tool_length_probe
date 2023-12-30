@@ -2,7 +2,7 @@ o<m500> sub
 ;Subroutine to stop a spindle and pause for a certain time.
 ;For spindles without feedback.
 ;The pause time will only be use if the spindle was on.
-;Stand: 2022-12-13
+;Stand: 2023-12-30
 
 #<spindle_on> = #<_spindle_on>
 
