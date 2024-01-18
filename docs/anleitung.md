@@ -1,5 +1,5 @@
 # Erklärung zur Nutzung der Werkzeugvermessungsroutine für Probe Basic von TooTall18T .
-Version 3.1.0 stand 30.12.2023  
+Version 4.0.0 stand 18.01.2024  
 https://github.com/TooTall18T/tool_length_probe
 
 > [!IMPORTANT]
@@ -12,6 +12,7 @@ https://github.com/TooTall18T/tool_length_probe
 - Anmerkungen und Hinweise
 - Installation
 - Einrichten
+    - Grundeinstellung
 - Ablauf der Routine
     - Weitere Funktionen
 - Weitere Informationen
@@ -60,7 +61,7 @@ In die ".var" Datei, welche in der ".ini" unter "PARAMETER_FILE" hinterlegt ist,
 
 
 ### Optionale Subroutinen
-- go_to_g30.ngc -- Die original Routine fährt auch die Z-Achse auf die G30-Position. Die neue Routine bleibt über dem Taster stehen (G53 Z0). Bei der Verwendung der alternativen Werkzeugwechselposition wird diese Angefahren statt sich über dem Taster zu positionieren.
+- go_to_g30.ngc -- Die original Routine fährt alle Achsen gleichzeitig auf die G30-Position. Diese Routine fährt die Z-Achse frei und danach zunächst die X- und Y-Achse an die G30-Position. Dort angekommen wird auch die Z-Achse auf die G30-Position gefahren.
   
 - M600.ngc -- Subroutine zum Aufruf der Werkzeugvermessung aus dem CNC Programm heraus.  
 	In der ".ini" unter "[RS274NGS]" folgendes eintragen:  
@@ -77,36 +78,37 @@ In die ".var" Datei, welche in der ".ini" unter "PARAMETER_FILE" hinterlegt ist,
 	REMAP=M500 modalgroup=7 ngc=m500
 ---
 ## Einrichten
-![Darstellung G30-Position](./images/parameter_1.jpg)  
-1. Werkzeug auf "0" umschalten und die Verschiebung des Werkstückkoordinatensystems zurücksetzen (G5X = G53). 
-2. Die Spindel zentrisch über dem Werkzeugtaster positionieren.  
-3. Setzen der G30-Position (Startpunkt Neuvermessung).  
-  Es gibt einen Bereich in dem die G30-Position gesetzt werden kann. Der Bereich reicht von der G53 Z0 Position (3a) bis hin, dass das längste Werkzeug mit etwas Sicherheitsabstand über dem Werkzeugtaster steht (3b).  
-  Jeder Punkt in diesem Bereich kann als G30-Position genutzt werden.  
-  Umso höher die G30-Position gesetzt wird, desto länger dauert eine Neuvermessung. Umso tiefer die Position gewählt wird, desto mehr schränkt man sich mit evtl. späteren Werkzeuglängen ein.  
-   - 3a Die Maschine auf G53 Z0 hochfahren und hier unter [OFFSETS] [SET TOOL TOUCH OFF POSITION] drücken (G30-Position). Die Koordinaten werden übernommen.  
-   - 3b Das längste Werkzeug in die Spindel einspannen.  
-  Nun das Werkzeug mit Sicherheitsabstand über den Werkzeugtaster fahren. **Unterschritten werden darf dieser Abstand nicht!**  
-  Die Maschine an diesem Punkt stehen lassen und unter [OFFSETS] [SET TOOL TOUCH OFF POSITION] drücken (G30-Position). Die Koordinaten werden übernommen.  
-4. Jetzt die Z-Achse nullen.
-5. Ggf. das Werkzeug entnehmen und die Spindel vorsichtig bis knapp über den Werkzeugtaster fahren. Der Taster sollte nicht betätigt werden.   
-6. Den Wert der Z-Position aus dem aktuellen Koordinatensystem ohne Vorzeichen unter [OFFSETS] {spindle zero} eintragen.
-7. Der Taster kann nun frei gefahren werden.
 
+### Grundeinstellung
+1. Die Subroutine in einem Editor öffnen.
+2. Werkzeug aus der Spindel entfernen.
+3. Werkzeug auf "0" umschalten.
+4. Verschiebung des Werkstückkoordinatensystems zurücksetzen (G5X = G53). 
+5. Die Spindel zentrisch über dem Werkzeugtaster positionieren.  
+6. Die Spindel knapp über dem Schaltpunkt des Werkzeugtasters positionieren.
+![Z-Position](./images/z-position.jpg)  
+7. Die G53-Koordinaten ablesen und in der Subroutine unter "-1- Fixed parameters" / "-MAIN-" / "#<tool_touch_x_coords>", "#<tool_touch_y_coords>" und "#<tool_touch_z_coords>" eintragen.
+![G53-Position](./images/machine-coordinates.jpg)  
+8. Z-Achse nullen.
+9. Z-Achse hoch fahren. Abstand zwischen Längentaster und Spindel so groß wählen, dass das längste Werkzeug mit Abstand dazwischen passt. Diese Position dient als Startpunkt für die Vermessung von neuen Werkzeugen. Die Z-Position aus dem akuellen Koordinatensystem unter [OFFSETS] "{spindle zero}" eintragen. Der Wert kann jederzeit geändert werden.
+![Position neue Werkzeuge](./images/new_tool_position.jpg)  
+![Spindle zero](./images/spindle_zero.jpg)  
 
-![Darstellung Parameter](./images/parameter_2.jpg)  
 Unter [OFFSETS] die folgenden Parameter ausfüllen:
 | Parameter | Beschreibung  |
 | -------  | -----  |
 | fast probe fr  | Geschwindigkeit in Maschineneinheit/min für die erste Antastung (schnelle Vermessung). |
 | slow probe fr  | Geschwindigkeit in Maschineneinheit/min für die zweite Antastung. Ist der Wert 0 , wird nur die erste Antastung durchgeführt. |
 | z max travel  | Maximale Strecke die die Z-Achse während der Vermessung eines bekannten Werkzeugs zurücklegt. Wert sollte größer als "#<tool_min_dis>" sein. |
-| spindle zero  | Abstand zwischen Spindel und Werkzeugtaster bei G30-Position. |
+| spindle zero  | Abstand zwischen Spindel und Werkzeugtaster für Neuvermessungen. |
 | retract dist  | Strecke die die Z-Achse nach der ersten Antastung nach oben fährt bevor die zweite Antastung stattfindet. Es muss ein Wert eingetragen sein, egal ob die langsame Vermessung stattfindet oder nicht. |
 
 Nachdem die Parameter ausgefüllt sind unter [TOOL] 1x [TOUCH OFF CURRENT TOOL] drücken, um die Parameter in der Variablendatei zu speichern. Es wird keine Vermessung gestartet. Es erscheint nur eine Meldung.
 > [!IMPORTANT]
 > Nach Änderungen an diesen Parametern muss erneut 1x [TOUCH OFF CURRENT TOOL] gedrückt werden.
+
+![Position bekannte Werkzeuge](./images/old_tool_position.jpg)  
+
 
 
 In der Datei "tool_touch_off.ngc" die folgenden Parameter unter "-1- Fixed parameters" anpassen:
@@ -121,6 +123,7 @@ In der Datei "tool_touch_off.ngc" die folgenden Parameter unter "-1- Fixed param
 | #<brake_after_M600>  | Bei ">0" warten auf Bestätigung, dass das Programm nach der Vermessung weiter arbeiten darf. 1 = M00, 2 = M01 . Siehe "Fall 2.1 und 2.2" |
 | #<go_back_to_start_pos>  | Bei "1" fährt die Maschine, bei der Automatischen Vermessung, zur Position zurück an der die Routine gestartet wurde. |
 | #<spindle_stop_m>  | M-Befehlnummer zum stoppen der Spindel. Standard 5 (M5), optional 500 (M500 / m500.ngc). |
+| #<disable_pre_pos> | Deaktiviert die Werkzeugwechselposition an der G30-Koordinaten. Werkzeug wird über Werkzeugtaster gewechselt. |
 | #< addreps> | Anzahl zusätzlicher Vermessungsversuche. Bei fehlerhafter schneller Vermessung fährt die Maschine wieder an die Werkzeugwechselposition und das Werkzeug kann neu eingestellt werden. |
 | #< lasttry> | Bei "1" macht die Maschine beim letzten Vermessungsversuch eine Vermessung ohne Werkzeugtabelle. #< addreps> muss mindestens "1" sein. |
 |  |  |
@@ -134,10 +137,7 @@ In der Datei "tool_touch_off.ngc" die folgenden Parameter unter "-1- Fixed param
 | #<finder_touch_x_coords> | Absolute (G53) X-Koordinate für Messpunkt 3D-/Kantentaster. |
 | #<finder_touch_y_coords> | Absolute (G53) Y-Koordinate für Messpunkt 3D-/Kantentaster. |
 | #<finder_diff_z> | Differenz zwischen Werkzeugtaster und Referenzoberfläche. Das Vorzeichen gibt die Differenz in Achsrichtung an. "-" = tiefer als Werkzeugtaster, "+" = höher als Werkzeugtaster. |
-|  |  |
-|  `OPTION: WERKZEUGWECHSELPOSITION` |  |
-| #<tool_change_x> | Absolute (G53) X-Koordinate für Werkzeugwechselposition. Ist eine von beiden Koordinaten nicht "0" werden beide Koordinaten verwendet. |
-| #<tool_change_y> | Absolute (G53) Y-Koordinate für Werkzeugwechselposition. Ist eine von beiden Koordinaten nicht "0" werden beide Koordinaten verwendet. |
+
 
 
 > [!IMPORTANT]
@@ -154,7 +154,7 @@ In der Datei "tool_touch_off.ngc" die folgenden Parameter unter "-1- Fixed param
 Die Subroutine unterscheidet beim Aufruf drei Fälle: neue Parameter, neues Werkzeug (Länge <=0mm), bekanntes Werkzeug (Länge >0mm).
 
 #### Fall 1.1 neue Parameter:
-Wenn man unter [OFFSETS] einen Parameter für die Werkzeugvermessung geändert hat, oder die Koordinaten für die Werkzeugwechselposition ("#<tool_change_x>"/"#<tool_change_y>"), muss man unter [TOOL] 1x auf [TOUCH OFF CURRENT TOOL] drücken. Dies speichert die aktuellen Parameter in der Variablendatei. Eine Vermessung wird nicht ausgeführt, statt dessen kommt die Meldung "New parameters saved!" / "Neue Parameter gespeichert!".  
+Wenn man unter [OFFSETS] einen Parameter für die Werkzeugvermessung geändert hat, muss man unter [TOOL] 1x auf [TOUCH OFF CURRENT TOOL] drücken. Dies speichert die aktuellen Parameter in der Variablendatei. Eine Vermessung wird nicht ausgeführt, statt dessen kommt die Meldung "New parameters saved!" / "Neue Parameter gespeichert!".  
 So müssen die Parameter nicht nochmal händisch in die M600 Subroutine eingetragen werden.
 
 
@@ -165,7 +165,8 @@ Fortfahrend mit Fall 1.2 oder 1.3 .
 
 
 #### Fall 1.2 neues Werkzeug (Länge <=0mm):
-Die Z-Achse fährt mit G0 auf die G30-Position über den Werkzeugtaster.  
+Die Z-Achse fährt mit G0 auf die Höhe von "{spindle zero}" über den Werkzeugtaster.  
+Dieser Wert muss größer sein als das längste zuerwartende Werkzeug, darf aber nicht länger sein als der Weg zwischen Werkzeugtaster und Z-Null.
 Anschließend fährt die Z-Achse mit der Geschwindigkeit "{fast probe fr}" solange runter bis der Werkzeugtaster schaltet oder die Z-Achse die Strecke "{spindel zero}" abgefahren hat.  
 Letzteres führt zu einer Fehlermeldung: "Tool length offset probe failed!" / "Werkzeugvermessung fehlgeschlagen!"  
 Wenn der Taster geschaltet hat, fährt die Z-Achse um den Wert "{retract dist}" nach oben.  
@@ -194,7 +195,7 @@ Die Subroutine unterscheidet beim Aufruf vier Fälle: neues Werkzeug (Länge <=0
 
 #### Fall 2.1 und 2.2:
 Die Vermessung von neuen und bekannten Werkzeugen funktioniert in der Vermessung, die durch das CNC Programm gestartet wird, gleich. Siehe dazu "Fall 1.2" und "Fall 1.3" oben.  
-Jedoch fährt die Maschine an die Werkzeugwechselposition und verlangt dort den Werkzeugwechsel bevor die Maschine zum Werkzeugtaster fährt. Sie dazu "Werkzeugwechselposition".  
+Jedoch fährt die Maschine an die Werkzeugwechselposition (G30 oder über den Werkzeugtaster) und verlangt dort den Werkzeugwechsel bevor die Maschine zum Werkzeugtaster fährt. Sie dazu "Werkzeugwechselposition".  
 Zusätzlich kann in der Routine über den festen Parameter "#<go_back_to_start_pos>" (1) gewählt werden, dass die Maschine nach der Vermessung an den Punkt zurück fährt an dem die Routine aufgerufen wurde. So muss man den Rückweg vom Taster nicht im CNC Programm programmieren.  
 Fährt die Maschine, bedingt durch "#<go_back_to_start_pos>" zurück. Kann über "#<brake_after_M600>" (0/1/2) gewählt werden ob die Maschine an der Stelle wartet bevor
 das CNC Programm weiter läuft.   
@@ -226,8 +227,10 @@ Ist das gewählte Werkzeug bereits in der Maschine. Wird die Meldung "Same tool"
 Der Debug Mode erzeugt im Konfigurationsordner eine "logfile.txt" Datei. In dieser werden einige Parameter der Maschine und der Routine gespeichert um ggf. bei einem Fehler den Grund dafür zu finden. Die Datei wird bei jedem Aufruf der Routine überschrieben.
 
 #### Werkzeugwechselposition
-Wird eine der Koordinaten für die Werkzeugwechselposition eingetragen, fährt die Maschine vor der Vermessung über "M600" zunächst an die X- und Y-Koordinate und verlangt den Werkzeugwechsel. Danach positioniert sich die Maschine erst über dem Werkzeugtaster.  
-Wird bei genutzter Werkzeugtabelle die Anzahl zusätzlicher Vermessungsversuche ("#< addreps>") auf min. "1" gesetzt, fährt die Maschine, sowohl bei der manuellen als auch automatischen Vermessung, nach einem Fehlversuch der schnellen Vermessung an diese Position und verlangt erneut nach dem Werkzeug.  
+Die Werkzeugwechselposition (G30) kann über [OFFSETS] [SET TOOL TOUCH OFF POSITION] festgelegt werden.  
+Dazu die Maschine an die gewünschte Position fahren und [SET TOOL TOUCH OFF POSITION] drücken. Die Position kann jederzeit wenn nötig geändert werden. Um die Position für die Subroutine frei zugeben, den Wert "#<disable_pre_pos>" auf "0" setzen.
+Wird die Funktion genutzt, fährt die Maschine vor der Vermessung über "M600" zunächst an die X-, Y- und Z-Koordinate (G30) und verlangt den Werkzeugwechsel. Danach positioniert sich die Maschine erst über dem Werkzeugtaster.  
+Wird bei genutzter Werkzeugtabelle die Anzahl zusätzlicher Vermessungsversuche ("#< addreps>") auf min. "1" gesetzt, fährt die Maschine, sowohl bei der manuellen als auch automatischen Vermessung, nach einem Fehlversuch der schnellen Vermessung, an diese Position und verlangt erneut nach dem Werkzeug.  
 So kann das Werkzeug nach justiert werden.  
 Wird die Option "Letzter Versuch" genutzt, fährt die Maschine beim letzten Vermessungsversuch nicht mehr die Werkzeugwechselposition an, sondern vermisst direkt das Werkzeug neu.
 
