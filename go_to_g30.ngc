@@ -1,20 +1,14 @@
 o<go_to_g30> sub
-;Version date: 2023-12-30
-;The machine moves only to the X and Y coordinates. It uses the same pre position as the "tool_touch_off.ngc" if set there.
-;G30 moves the machine to X, Y and Z.
-
-;-Parameters
-#<tool_change_x> = #3006  ;set parameter in "tool_touch_off.ngc"
-#<tool_change_y> = #3007  ;set parameter in "tool_touch_off.ngc"
+;Version date: 2024-01-14
+;The machine moves the Z-axis free and moves only the X- and Y-axis to its coordinates. At that position the Z-axis moves to its coordinate.
+;G30 moves the machine to X, Y and Z at the same time.
 
 M73 (save caller state in current call context, restore on return or endsub)
 G90
 G53 G0 Z0
-o<106> if [#<tool_change_x> NE 0 OR #<tool_change_x> NE 0]
-  G53 G0 X#<tool_change_x> Y#<tool_change_y>
-o<106> else
-  G53 G0 X#5181 Y#5182     ;Position of the touch plate in X and Y
-o<106> endif
+G53 G0 X#5181 Y#5182     ;Tool change position X and y
+G53 G0 Z#5183
+
 o<go_to_g30> endsub
 
 M2
