@@ -1,5 +1,5 @@
 # Erklärung zur Nutzung der Werkzeugvermessungsroutine für Probe Basic von TooTall18T .
-Version 3.1.0 stand 30.12.2023  
+Version 4.0.0 stand 18.01.2024  
 https://github.com/TooTall18T/tool_length_probe
 
   
@@ -55,16 +55,14 @@ Die Einstellungen in Probe Basic können weiterhin dort vorgenommen werden, die 
   
 ---
 ## Letzte Änderung:
-V3.1.0
+V4.0.0
 - readme.md / lies_mich.md - Überarbeitet, dient nun als Übersicht.
 - manual.md / anleitung.md - Die Anleitung überarbeitet und in eine eigene Datei verschoben.
 - tool_touch_off.ngc:
-	- Die Positionierung über dem Werkzeugtaster geändert. Sichere Nutzung des G30 Befehls möglich.
+	- Die Positionierung über dem Werkzeugtaster geändert. Sichere Nutzung des G30 Befehls möglich. G30-Position als Werkzeugwechselposition.
 	- Die Parameter in der .var-Datei von 4000-4005 auf 3000-3005 verschoben.
-	- Zusätzliche Parameter in die .var-Datei eingefügt (3006-3007).
 	- Durchmesserversatz hinzugefügt. Ab einem eingestellten Durchmesser versetzt die Maschine einen Prozentualenwert des Fräsers, um auch Fräser mit größerem Durchmesser messen zu können.
 	- Werkzeug Kantentaster hinzugefügt. Ein Werkzeug kann als 3D/Kantentaster eingestellt werden, um an einer alternativen Position vermessen zu werden.
-    - Alternative Werkzeugwechselposition hinzugefügt. Die Maschine bewegt sich an eine Vorabposition, an der das Werkzeug gewechselt werden kann. Danach fährt die Maschine zum Werkzeuglängentaster.
 	- Zusätzliche Versuche hinzugefügt. Sollte die Schnellmessung fehlschlagen, können zusätzliche Versuche zur Messung des Werkzeugs eingestellt werden. Dazwischen kann die Werkzeugposition im Halter geändert werden.
 	- Ein letzter Versuch. Als letzten Versuch kann eine Messung ohne die Werkzeugtabelle durchgeführt werden.
 	- Deutsche Meldefenster hinzugefügt. Zum Wechsel muss das Semikolon vor "(DEBUG," und "(ABORT," versetzt werden.
