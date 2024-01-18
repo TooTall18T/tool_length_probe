@@ -1,5 +1,5 @@
 # Explanation of using the tool length probe subroutine for Probe Basic from TooTall18T .
-Version 3.1.0 as of 30.12.2023  
+Version 4.0.0 as of 18.01.2024  
 https://github.com/TooTall18T/tool_length_probe
 
 ---
@@ -9,7 +9,6 @@ https://github.com/TooTall18T/tool_length_probe
 - Range of function
 - Last changes
 - License
-
 
 ---
 ## Notes and notices
@@ -56,19 +55,17 @@ The settings in Probe Basic can still be made there, the additional ones are mad
 
 ---
 ## Last change:
-V3.1.0
+V4.0.0
 - readme.md / lies_mich.md - Revised, now serves as an overview.
 - manual.md / anleitung.md - Updated the manual and moved to its own files.
 - tool_touch_off.ngc:
-    - Changed the positioning above the tool probe. Safe use of the G30 command possible.
+    - Changed the positioning above the tool probe. Safe use of the G30 command possible. Use G30-position as tool change position.
     - Moved the parameters of the .var-file from 4000-4005 to 3000-3005.
-    - Added parameters to the .var-file (3006-3007).
     - Added tool diameter offset. From a set diameter, the machine offsets by a percentage value in order to be able to measure the length of cutters with larger diameters.
     - Added tool edge-finder. A tool can be set as a 3D/edge finder to be measured at an alternative position.
-    - Added tool change position. The machine moves to a pre position for tool changing. After that, the machine moves to the touch probe position
     - Added additional attempts. If the fast measurment failed, an additianal attempts to measure the tool can be set. Inbetween the tool position can be changed.
     - Added last try. As a last try, a probing without the tool table can be done.
-    - Added German messages. To change, the semicolon in front of "(DEBUG," "(MSG," and "(ABORT,") must be moved.
+    - Added German messages. To change, the semicolon in front of "(DEBUG," and "(ABORT," must be moved.
 
 V3.0.1
 - tool_touch_off.ngc
