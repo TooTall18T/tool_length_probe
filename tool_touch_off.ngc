@@ -1,7 +1,7 @@
 o<tool_touch_off> sub
 
 ;Subprogram for manuel tool change with measurement of the tool.
-;Version date: 2024-01-18
+;Version date: 2024-01-19
 ;Version: 4.0.0
 ;https://github.com/TooTall18T/tool_length_probe
 
@@ -369,7 +369,7 @@ o<120> endif
 ;-170- Define new tool length
 (define new tool length offset parameters)
 o<131> if [#<tool_selected> EQ #<finder_number>]
-  #<new_tool_length_offset> = [[ABS[#<tool_touch_z_coords>] + #5063 - #<offset_z>] + #<finder_diff_z>]
+  #<new_tool_length_offset> = [[ABS[#<tool_touch_z_coords>] + #5063 - #<offset_z>] - #<finder_diff_z>]
 o<131> else
   #<new_tool_length_offset> = [ABS[#<tool_touch_z_coords>] + #5063 - #<offset_z>]
 o<131>endif
