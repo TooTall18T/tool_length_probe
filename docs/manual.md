@@ -1,5 +1,5 @@
 # Explanation of using the tool length probe subroutine for Probe Basic from TooTall18T .
-Version 4.0.0 as of 18.01.2024  
+Version 4.0.0 as of 21.01.2024  
 https://github.com/TooTall18T/tool_length_probe
 
 
@@ -79,7 +79,7 @@ REMAP=M300 modalgroup=7 ngc=m300
 
 - M500.ngc -- Subroutine to stop a tool spindle without feedback. If the spindle was on, the CNC program pauses for an adjustable time (P4.0 = 4s).  
 Enter the following in the ".ini" under "[RS274NGS]":  
-REMAP=M500 modalgroup=7 ngc=m500
+REMAP=M500 modalgroup=7 ngc=m500  
 
 ---
 ## Set up
@@ -90,15 +90,14 @@ REMAP=M500 modalgroup=7 ngc=m500
 3. Switch to tool "0".
 4. Reset the workpiece coordinate system (G5X = G53).
 5. Center the spindle over the tool probe.  
-6. Position the spindle nose slightly above the trigger point of the tool probe.
+6. Position the spindle nose slightly above the trigger point of the tool probe.  
 ![Z-position](./images/z-position.jpg)  
-7. Write the G53-coordinates into the subroutine at "-1- Fixed parameters" / "-MAIN-" / "#<tool_touch_x_coords>", "#<tool_touch_y_coords>" and "#<tool_touch_z_coords>"
+7. Write the G53-coordinates into the subroutine at "-1- Fixed parameters" / "-MAIN-" / "#<tool_touch_x_coords>", "#<tool_touch_y_coords>" and "#<tool_touch_z_coords>".  
 ![G53-position](./images/machine-coordinates.jpg)  
 8. Set the z-axis to zero.
-9. Move the z-axis up. Choose a distance that the longest tool has some space to the tool touch probe. This position is the starting position for new tools. Write the z-position from the current coordinate system into [OFFSETS] "{spindle zero}". This value can be changed at any time.
+9. Move the z-axis up. Choose a distance that the longest tool has some space to the tool touch probe. This position is the starting position for new tools. Write the z-position from the current coordinate system into [OFFSETS] "{spindle zero}". This value can be changed at any time.  
 ![Position new tools](./images/new_tool_position.jpg)  
 ![Spindle zero](./images/spindle_zero.jpg)  
-
 
 Under [OFFSETS] fill in the following parameters:  
 | Parameter | Description  |
@@ -125,7 +124,7 @@ Adjust the following parameters under "-2- Fixed parameters" in the "tool_touch_
 | #<tool_min_dis>  | Distance between tool probe and old tool length. Only used in connection with tool table.|
 |  |  |
 | ` OPTIONS: GENERALLY ` |
-| #<brake_after_M600>  | If ">0" wait for confirmation that the program may continue to work after the measurement. 1 = M00, 2 = M01 . See "Case 1.2 and 2.2"|
+| #<brake_after_M600>  | If ">0" wait for confirmation that the program may continue to work after the measurement. 1 = M00, 2 = M01 . See "Case 2.1 and 2.2"|
 | #<go_back_to_start_pos>  | With "1" the machine drives back to the position where the routine was started during automatic measurement.|
 | #<spindle_stop_m>  | M-code number to stop the spindle. Default 5 (M5), optional 500 (M500/m500.ngc).|
 | #<disable_pre_pos> | Disables the tool change position at the G30-coordinate. Tool will be changed above the tool probe. |
@@ -165,7 +164,7 @@ In this way, the parameters do not have to be entered again manually in the M600
 
 #### Case 1.2 and 1.3:  
 The Z-axis moves up to the machine zero point, if necessary switches off the spindle (stop function selectable via "#<spindle_stop_m>") and then moves to the tool probe position.  
-The fixed parameter "#<use_tool_table>" can be used to select whether the tool table is to be used (1). If the tool table is not used (0), the machine always makes one "remeasurement" (case 1.2).
+The fixed parameter "#<use_tool_table>" can be used to select whether the tool table is to be used (1). If the tool table is not used (0), the machine always makes one "remeasurement" (case 1.2).  
 Proceeding to case 1.2 or 1.3.
 
 
@@ -176,7 +175,7 @@ The Z-axis then moves down at the "{fast probe fr}" speed until the tool probe s
 The latter leads to an error message: "Tool length offset probe failed!"  
 When the button has switched, the Z-axis moves up by the "{retract dist}" value.  
 If a speed is defined for "{slow probe fr}" (>0), the machine approaches the probe again at this speed. If no speed is defined, this step is skipped.  
-The Z-axis then moves to the machine zero point. 
+The Z-axis then moves to the machine zero point.  
 The machine now stops during manual measurement.
 
 
@@ -187,7 +186,8 @@ Starting from the old tool length, the Z axis moves the tool with G0 as high ove
 The Z-axis then moves down at the "{fast probe fr}" speed until the tool probe switches or the Z-axis has covered the "{z max travel}" distance.  
 The latter leads to an error message: "Tool length offset probe failed!"  
 "{z max travel}" should not be chosen too large, otherwise the spindle can move onto the probe.  
-If the touch probe has switched, the Z-axis moves up by the "{retract dist}" value. If a speed is defined for "{slow probe fr}" (>0), the machine moves the probe again at this speed.  
+If the touch probe has switched, the Z-axis moves up by the "{retract dist}" value.  
+If a speed is defined for "{slow probe fr}" (>0), the machine moves the probe again at this speed. If no speed is defined, this step is skipped.  
 The Z-axis then moves to the machine zero point.  
 The machine now stops during manual measurement.  
 
@@ -198,7 +198,7 @@ When called, the subroutine differentiates between four cases: new tool (length 
 
 #### Case 2.1 and 2.2:  
 The measurement of new and known tools works the same way in the measurement that is started by the CNC program. See "Case 1.2" and "Case 1.3" above.  
-However, the machine moves to the tool change position (G30 or above the touch probe) and ask for the new tool before moving to the touch probe. See also "pre change position".  
+However, the machine moves to the tool change position (G30 or above the touch probe) and ask for the new tool before moving to the touch probe. See also "change position".  
 In addition, you can use the fixed parameter "#<go_back_to_start_pos>" (1) in the routine to select that the machine, after the measurement, returns to the point where the routine was called. So you don't have to program the return path from the tool probe in the CNC program.  
 Moves the machine back due to "#<go_back_to_start_pos>". Can be selected via "#<brake_after_M600>" (0/1/2) whether the machine waits at the point before
 the CNC program continues to run.  
@@ -229,10 +229,10 @@ Is the selected tool already in the machine. The message "Same tool" is output. 
 #### Debug mode
 The debug mode writes the "logfile.txt" file inside the configurations directory. In this file some machine and subroutines parameter will be saved to help with trouble shooting. The file will be overwritten every time.   
 
-#### Pre change position
+#### Change position
 The tool change position (G30) can be set with [OFFSETS] [SET TOOL TOUCH OFF POSITION].  
 To do this, move the machine to the desired position and press [SET TOOL TOUCH OFF POSITION]. This position can be changed at any time if needed. To use this position for the routine "#<disable_pre_pos>" must be set to "0".  
-If this function will be used, the machine moves to the G30 X- and Y-coordinate in case of a measurement started with "M600" and asks there for the tool change.  
+If this function will be used, the machine moves to the G30 X-, Y- and Z-coordinate in case of a measurement started with "M600" and asks there for the tool change.  
 After that the machine moves to the touch probe position.  
 When the tool table is used and the additional repetitions ("#< addreps>") is set to a min. of "1", the machine moves to this position after the fast measurement failed. This happens at the manual and automatic measurement.  
 This will happen to readust the tool.  
