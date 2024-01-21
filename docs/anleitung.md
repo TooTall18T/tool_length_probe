@@ -1,5 +1,5 @@
 # Erklärung zur Nutzung der Werkzeugvermessungsroutine für Probe Basic von TooTall18T .
-Version 4.0.0 stand 18.01.2024  
+Version 4.0.0 stand 21.01.2024  
 https://github.com/TooTall18T/tool_length_probe
 
 > [!IMPORTANT]
@@ -76,6 +76,7 @@ In die ".var" Datei, welche in der ".ini" unter "PARAMETER_FILE" hinterlegt ist,
 - M500.ngc -- Subroutine zum Stoppen einer Werkzeugspindel ohne Rückmeldung. Wenn die Spindel an war, pausiert das CNC Programm für eine einstellbare Zeit (P4.0 = 4s). Die Zeit wird in der Routine eingetragen.  
 	In der ".ini" unter "[RS274NGS]" folgendes eintragen:  
 	REMAP=M500 modalgroup=7 ngc=m500
+	
 ---
 ## Einrichten
 
@@ -85,12 +86,12 @@ In die ".var" Datei, welche in der ".ini" unter "PARAMETER_FILE" hinterlegt ist,
 3. Werkzeug auf "0" umschalten.
 4. Verschiebung des Werkstückkoordinatensystems zurücksetzen (G5X = G53). 
 5. Die Spindel zentrisch über dem Werkzeugtaster positionieren.  
-6. Die Spindel knapp über dem Schaltpunkt des Werkzeugtasters positionieren.
+6. Die Spindel knapp über dem Schaltpunkt des Werkzeugtasters positionieren.  
 ![Z-Position](./images/z-position.jpg)  
-7. Die G53-Koordinaten ablesen und in der Subroutine unter "-1- Fixed parameters" / "-MAIN-" / "#<tool_touch_x_coords>", "#<tool_touch_y_coords>" und "#<tool_touch_z_coords>" eintragen.
+7. Die G53-Koordinaten ablesen und in der Subroutine unter "-1- Fixed parameters" / "-MAIN-" / "#<tool_touch_x_coords>", "#<tool_touch_y_coords>" und "#<tool_touch_z_coords>" eintragen.  
 ![G53-Position](./images/machine-coordinates.jpg)  
 8. Z-Achse nullen.
-9. Z-Achse hoch fahren. Abstand zwischen Längentaster und Spindel so groß wählen, dass das längste Werkzeug mit Abstand dazwischen passt. Diese Position dient als Startpunkt für die Vermessung von neuen Werkzeugen. Die Z-Position aus dem akuellen Koordinatensystem unter [OFFSETS] "{spindle zero}" eintragen. Der Wert kann jederzeit geändert werden.
+9. Z-Achse hoch fahren. Abstand zwischen Längentaster und Spindel so groß wählen, dass das längste Werkzeug mit Abstand dazwischen passt. Diese Position dient als Startpunkt für die Vermessung von neuen Werkzeugen. Die Z-Position aus dem akuellen Koordinatensystem unter [OFFSETS] "{spindle zero}" eintragen. Der Wert kann jederzeit geändert werden.  
 ![Position neue Werkzeuge](./images/new_tool_position.jpg)  
 ![Spindle zero](./images/spindle_zero.jpg)  
 
