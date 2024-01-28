@@ -1,11 +1,13 @@
 o<go_to_g30> sub
-;The machine moves only to the X and Y coordinates.
-;G30 moves the machine to X, Y and Z. With the tool inserted, this leads to a collision
+;Version date: 2024-01-14
+;The machine moves the Z-axis free and moves only the X- and Y-axis to its coordinates. At that position the Z-axis moves to its coordinate.
+;G30 moves the machine to X, Y and Z at the same time.
 
+M73 (save caller state in current call context, restore on return or endsub)
 G90
 G53 G0 Z0
-G53 G0 X#5181 Y#5182     ;Position of the touch plate in X and Y
-;G30
+G53 G0 X#5181 Y#5182     ;Tool change position X and y
+G53 G0 Z#5183
 
 o<go_to_g30> endsub
 
