@@ -97,7 +97,6 @@ o<10> if [#<debug_mode> GT 0]
   (LOG, Finder X: #<finder_touch_x_coords> )
   (LOG, Finder Y: #<finder_touch_y_coords> )
   (LOG, Finder diff: #<finder_diff_z>)
-  (LOG, === OPTION Pre change pos ===)
   (LOG, ============================)
 o<10>endif
 
