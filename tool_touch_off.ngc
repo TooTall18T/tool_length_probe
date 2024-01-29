@@ -58,7 +58,7 @@ o<10> if [#<debug_mode> GT 0]
   (DEBUG, "logfile.txt" created in the configuration folder.)
   ;(DEBUG, "logfile.txt" im Konfigurationsordner erstellt.)
   (LOGOPEN,logfile.txt)
-  (LOG, Log file for the subroutine "tool_touch_off.ngc" Version 3.1.0 from TooTall18T)
+  (LOG, Log file for the subroutine "tool_touch_off.ngc" Version 4.0.0 from TooTall18T)
   (LOG, Fast: #<fast_probe_fr>)
   (LOG, FAST.var: #3000)
   (LOG, Slow: #<slow_probe_fr>)
