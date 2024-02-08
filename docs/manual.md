@@ -65,7 +65,7 @@ Enter the following parameters in the ".var" file, which is stored in the ".ini"
 > Should the parameters listed above already exist. Six other parameters must be chosen between 31 and 5000 and the routine rewritten.
 
 ### Optional subroutines:
-- go_to_g30.ngc -- The original routine moves all axis at the same time to the G30-position. The new routine moves the z-axis free and than to the x and y coordinate of the G30-position. After that the z-axis moves to its position.
+- go_to_g30.ngc -- The original routine moves all axes at the same time to the G30-position. The new routine moves the z-axis free and than to the x and y coordinate of the G30-position. After that the z-axis moves to its position.
 
 - M600.ngc -- Subroutine for calling tool measurement from the CNC program.  
 Enter the following in the ".ini" under "[RS274NGS]":  
