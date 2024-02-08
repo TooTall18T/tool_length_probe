@@ -32,7 +32,7 @@ Darin ist auch ein Ablauf der Funktionen beschrieben.
 ---
 ## Funktionsumfang
 Die Subroutine dient dazu in LinuxCNC, mit der Oberfläche Probe Basic, Werkzeuge an einem stationären Werkzeuglängentaster einzumessen.  
-Dabei ist es egal, ob die Vermessung aus Probe Basic manuel gestartet wird, oder automatisch aus dem Fräsprogramm. Für den Ablauf gibt es optionale Einstellungen, die den Funktionsumfang zur original Subroutine erweitern.
+Dabei ist es egal, ob die Vermessung aus Probe Basic manuel gestartet wird, oder automatisch aus dem Fräsprogramm. Für den Ablauf gibt es optionale Einstellungen, die den Funktionsumfang zur original Subroutine erweitern.  
 
 Die Maschine wird automatisch frei gefahren und bewegt sich an den Werkzeugwechselpunkt. Nach der Bestätigung, dass das Werkzeug gewechselt ist, vermisst die Maschine das Werkzeug und kehrt ggf. automatisch an den Ausgangspunkt zurück.
 
@@ -72,7 +72,7 @@ V3.0.1
 	- IF Abfragen für log Befehle entfernt.
 	- Logclose Befehle hinzugefügt.
 	- Log END Markierungen eingefügt.
-	- Von "o<tool_touch_off.ngc> endsub" nach "o<tool_touch_off.ngc> return" geändert und M2 entfernt.
+	- Von "o<tool_touch_off.ngc> endsub" nach "o<tool_touch_off.ngc> return" geändert und M2 entfernt.  
 - readme.md / lies_mich.md
 	- Ansicht der Notes/Warning/Important Blöcke geändert.
 
@@ -102,4 +102,5 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
