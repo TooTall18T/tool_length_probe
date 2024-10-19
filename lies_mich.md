@@ -21,6 +21,9 @@ Die Routinen wurden mit den Versionen LinuxCNC 2.8 und Probe Basic 0.3.8 geteste
 Bei anderen Versionsständen können unter Umständen Unterschiede im Ablauf statt finden.  
 Die Funktionen der Routine sollten mit verminderter Geschwindigkeit getestet werden, bevor die Routine im Fertigungseinsatz genutzt wird.
 
+> [!IMPORTANT]
+> Diese Version der Routine ist nicht kompatibel mit der Verion 0.6.x von Probe Basic!
+
 Die Routinen "tool_touch_off.ngc" und "go_to_g30.ngc" basieren auf den gleichnamigen Routinen die bei Probe Basic dabei waren.
 
 ---   
