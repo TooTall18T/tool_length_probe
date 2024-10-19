@@ -19,6 +19,9 @@ The routines were tested with LinuxCNC 2.8 and Probe Basic 0.3.8 .
 With other versions, there may be differences in the process.
 The functions of the routine should be tested at reduced speed before using the routine in production.
 
+> [!IMPORTANT]
+> This version of the routine is not compatible with version 0.6.x Probe Basic!
+
 The routines "tool_touch_off.ngc" and "go_to_g30.ngc" are based on the routines of the same name that came with Probe Basic.
 
 > [!NOTE]
