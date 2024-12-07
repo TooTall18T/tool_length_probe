@@ -1,5 +1,5 @@
 # Erklärung zur Nutzung der Werkzeugvermessungsroutine für Probe Basic von TooTall18T .  
-Version 4.0.0 stand 18.01.2024  
+Version 4.0.1 stand 07.12.2024  
 https://github.com/TooTall18T/tool_length_probe
 
   
@@ -20,6 +20,9 @@ https://github.com/TooTall18T/tool_length_probe
 Die Routinen wurden mit den Versionen LinuxCNC 2.8 und Probe Basic 0.3.8 getestet.  
 Bei anderen Versionsständen können unter Umständen Unterschiede im Ablauf statt finden.  
 Die Funktionen der Routine sollten mit verminderter Geschwindigkeit getestet werden, bevor die Routine im Fertigungseinsatz genutzt wird.
+
+> [!IMPORTANT]
+> Die Versionen bis 4.0.1 sind nur mit Probe Basic bis zur Version 0.5.4-stable kompatibel.
 
 Die Routinen "tool_touch_off.ngc" und "go_to_g30.ngc" basieren auf den gleichnamigen Routinen die bei Probe Basic dabei waren.
 
@@ -55,6 +58,9 @@ Die Einstellungen in Probe Basic können weiterhin dort vorgenommen werden, die 
   
 ---
 ## Letzte Änderung:
+V4.0.1
+- Kompatibilitäts Hinweise hinzugefügt und Schreibfehler korrigiert.  
+
 V4.0.0
 - readme.md / lies_mich.md - Überarbeitet, dient nun als Übersicht.
 - manual.md / anleitung.md - Die Anleitung überarbeitet und in eine eigene Datei verschoben.
