@@ -60,6 +60,7 @@ The settings in Probe Basic can still be made there, the additional ones are mad
 ## Last change:
 V4.0.1
 - Added compatibility notes and corrected typos.
+
 V4.0.0
 - readme.md / lies_mich.md - Revised, now serves as an overview.
 - manual.md / anleitung.md - Updated the manual and moved to its own files.
