@@ -1,5 +1,5 @@
 # Explanation of using the tool length probe subroutine for Probe Basic from TooTall18T .  
-Version 4.0.0 as of 18.01.2024  
+Version 4.0.1 as of 07.12.2024  
 https://github.com/TooTall18T/tool_length_probe
 
 ---
@@ -20,7 +20,7 @@ With other versions, there may be differences in the process.
 The functions of the routine should be tested at reduced speed before using the routine in production.
 
 > [!IMPORTANT]
-> This version of the routine is not compatible with version 0.6.x Probe Basic!
+> Versions up to 4.0.1 are only compatible with Probe Basic up to version 0.5.4-stable.
 
 The routines "tool_touch_off.ngc" and "go_to_g30.ngc" are based on the routines of the same name that came with Probe Basic.
 
@@ -58,6 +58,8 @@ The settings in Probe Basic can still be made there, the additional ones are mad
 
 ---
 ## Last change:
+V4.0.1
+- Added compatibility notes and corrected typos.
 V4.0.0
 - readme.md / lies_mich.md - Revised, now serves as an overview.
 - manual.md / anleitung.md - Updated the manual and moved to its own files.
