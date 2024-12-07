@@ -1,5 +1,5 @@
 # Explanation of using the tool length probe subroutine for Probe Basic from TooTall18T .
-Version 4.0.0 as of 21.01.2024  
+Version 4.0.1 as of 07.12.2024  
 https://github.com/TooTall18T/tool_length_probe
 
 
@@ -13,6 +13,9 @@ https://github.com/TooTall18T/tool_length_probe
 > [!NOTE]
 > The German version of this document is called "[anleitung.md](anleitung.md)" and it is in the same folder.
 
+
+> [!IMPORTANT]
+> Versions up to 4.0.1 are only compatible with Probe Basic up to version 0.5.4-stable.
 
 ---
 ## Contents

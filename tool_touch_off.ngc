@@ -1,18 +1,20 @@
 o<tool_touch_off> sub
 
-;Subprogram for manuel tool change with measurement of the tool.
-;Version date: 2024-01-28
-;Version: 4.0.0
+;Subprogram for manual tool change with measurement of the tool.
+;Version date: 2024-12-07
+;Version: 4.0.1
 ;https://github.com/TooTall18T/tool_length_probe
 
 ;This subprogram is based on the original subprogram "tool_touch_off.ngc" that came with Probe Basic.
+
+;Versions up to 4.0.1 are only compatible with Probe Basic up to version 0.5.4-stable.
 
 ;The parameters 3000 till 3005 must be in the .var-file which is registered under "PARAMETER_FILE" in the machine .ini-file.
 
 
 ;-1- Fixed parameters
 ;-MAIN-
-#<debug_mode> = 0		                ;The debug mode for troubleshooting is set here. 0=OFF, 1=log file . File in the machine's config folder.
+#<debug_mode> = 0		    ;The debug mode for troubleshooting is set here. 0=OFF, 1=log file . File in the machine's config folder.
 #<tool_touch_x_coords> = 0          ;Position of the length button in X
 #<tool_touch_y_coords> = 0          ;Position of the length button in Y
 #<tool_touch_z_coords> = 0          ;Position above the length button in Z
@@ -58,7 +60,7 @@ o<10> if [#<debug_mode> GT 0]
   (DEBUG, "logfile.txt" created in the configuration folder.)
   ;(DEBUG, "logfile.txt" im Konfigurationsordner erstellt.)
   (LOGOPEN,logfile.txt)
-  (LOG, Log file for the subroutine "tool_touch_off.ngc" Version 4.0.0 from TooTall18T)
+  (LOG, Log file for the subroutine "tool_touch_off.ngc" Version 4.0.1 from TooTall18T)
   (LOG, Fast: #<fast_probe_fr>)
   (LOG, FAST.var: #3000)
   (LOG, Slow: #<slow_probe_fr>)
