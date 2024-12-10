@@ -1,5 +1,5 @@
-# Explanation of using the tool length probe subroutine for Probe Basic from TooTall18T .  
-Version 4.0.1 as of 07.12.2024  
+# Explanation of using the tool length probe subroutine for Probe Basic and other GUIs from TooTall18T .  
+Version 5.0.0 as of 10.12.2024  
 https://github.com/TooTall18T/tool_length_probe
 
 ---
@@ -15,12 +15,15 @@ https://github.com/TooTall18T/tool_length_probe
 > [!IMPORTANT]
 > Use the subroutines at your own risk!
 
-The routines were tested with LinuxCNC 2.8 and Probe Basic 0.3.8 .
+The routines were tested with LinuxCNC 2.9.3 and Probe Basic 0.6.0-018 .
 With other versions, there may be differences in the process.
 The functions of the routine should be tested at reduced speed before using the routine in production.
 
-> [!IMPORTANT]
-> Versions up to 4.0.1 are only compatible with Probe Basic up to version 0.5.4-stable.
+> [!NOTE]
+> This version of the routine is for Probe Basic 0.6.0 and higher.
+
+> [!NOTE]
+> With small changes this routine can be used with every GUI.
 
 The routines "tool_touch_off.ngc" and "go_to_g30.ngc" are based on the routines of the same name that came with Probe Basic.
 
@@ -35,15 +38,15 @@ A sequence of functions is also described there.
 
 ---
 ## Range of function
-The subroutine is used to measure tools on a stationary tool length probe in LinuxCNC with the Probe Basic interface.
-It doesn't matter whether the measurement is started manually from Probe Basic or automatically from the milling program. There are optional settings for the process that extend the functionality of the original subroutine.  
+The subroutine is used to measure tools on a stationary tool length probe in LinuxCNC with the GUI Probe Basic or other GUIs.
+It doesn't matter whether the measurement is started manually or automatically from the milling program. There are optional settings for the process that extend the functionality of the original subroutine.  
   
 The machine is automatically freed and moves to the tool change point. After confirming that the tool has been changed, the machine measures the tool and, if necessary, automatically returns to the starting point.  
   
 Things like the use of the tool table, the frequency of measurement attempts in the event of incorrect measurements or the position at which the tool is changed can be set individually.  
   
 An overview of the extensions compared to the original subroutine:
-- Call using M command (M600)
+- Call using M command (M600 / M601)
 - Use tool table
 - Return to the starting point
 - Pause at the starting point
@@ -54,10 +57,23 @@ An overview of the extensions compared to the original subroutine:
 - Alternative position for changing tools
 - Alternative measurement position for 3D probes
   
-The settings in Probe Basic can still be made there, the additional ones are made at the beginning of the subroutine.
+The settings in Probe Basic can still be made there, the additional ones are made at the beginning of the subroutine.  
+By using other GUIs all settings need to be made in the subroutine.
 
 ---
 ## Last change:
+V5.0.0
+- readme.md / lies_mich.md - Added information about possible use with other GUIs
+- manual.md / anleitung.md - Adapted the configuration process to Probe Basic 0.6.0 and for general use
+- tool_touch_off.ngc:
+    - Update the parameter numbers for Probe Basic 0.6.0
+    - Deleted the direct parameter handover
+    - Added the parameter "traverse fr" for the speed of fast movements
+    - Added "M50 feed override control" to prevent manipulation of the feed rate during the process
+    - Updated the directions for tool offset at larger diameters
+- M600 - Added mode parameter "#2000"
+- M601 - Added to start the subroutine in manual mode
+
 V4.0.1
 - Added compatibility notes and corrected typos.
 
@@ -82,16 +98,6 @@ V3.0.1
 - readme.md / lies_mich.md
     - Update Notes/Warning/Important block style.
     
-V3.0 
-- tool_touch_prog.ngc - Routine moved to "tool_touch_off.ngc" routine.
-- tool_touch_off.ngc - save the required parameters from the interface to the variable file (4000-4005). Parameters no longer need to be written to the files.
-- Added debug mode with file output. File is saved in the machine folder as "logfile.txt".
-- Fixed parameter "#<brake_after_M600>" extended. "1" the machine pauses with M0 at the position
-at which the tool change was called. "2" the machine pauses with M1 if [M01 BREAK] is enabled. 
-There is also a pause when changing to the same tool.
-- Added the fixed parameter "#<use_tool_table>". With "0" a "remeasurement" is always carried out.
-- Moved #<go_back_to_start_pos> to "Fixed parameters".
-- #<spindle_stop_m> to select the M command to stop the spindle (5 / 500).
 
 ---
 ## License
@@ -109,7 +115,3 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
-
-
-
-
