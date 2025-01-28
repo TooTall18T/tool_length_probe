@@ -20,7 +20,7 @@ With other versions, there may be differences in the process.
 The functions of the routine should be tested at reduced speed before using the routine in production.
 
 > [!IMPORTANT]
-> Versions up to 4.0.1 are only compatible with Probe Basic up to version 0.5.4-stable.
+> Versions up to 4.0.1 are only compatible with Probe Basic up to version 0.5.4-stable. 
 > For Probe Basic 0.6.0 please use the version in the develop branch: https://github.com/TooTall18T/tool_length_probe/tree/develop
 
 The routines "tool_touch_off.ngc" and "go_to_g30.ngc" are based on the routines of the same name that came with Probe Basic.
