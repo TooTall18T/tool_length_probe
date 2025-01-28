@@ -22,7 +22,8 @@ Bei anderen Versionsständen können unter Umständen Unterschiede im Ablauf sta
 Die Funktionen der Routine sollten mit verminderter Geschwindigkeit getestet werden, bevor die Routine im Fertigungseinsatz genutzt wird.
 
 > [!IMPORTANT]
-> Die Versionen bis 4.0.1 sind nur mit Probe Basic bis zur Version 0.5.4-stable kompatibel.
+> Die Versionen bis 4.0.1 sind nur mit Probe Basic bis zur Version 0.5.4-stable kompatibel.  
+> Für Probe Basic 0.6.0 bitte die Version aus dem develop Branch nutzen: https://github.com/TooTall18T/tool_length_probe/tree/develop
 
 Die Routinen "tool_touch_off.ngc" und "go_to_g30.ngc" basieren auf den gleichnamigen Routinen die bei Probe Basic dabei waren.
 
