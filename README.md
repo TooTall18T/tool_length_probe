@@ -1,5 +1,5 @@
 # Explanation of using the tool length probe subroutine for Probe Basic and other GUIs from TooTall18T .  
-Version 5.0.0 as of 10.12.2024  
+Version 5.0.0 as of 06.02.2025  
 https://github.com/TooTall18T/tool_length_probe
 
 ---
@@ -20,7 +20,8 @@ With other versions, there may be differences in the process.
 The functions of the routine should be tested at reduced speed before using the routine in production.
 
 > [!NOTE]
-> This version of the routine is for Probe Basic 0.6.0 and higher.
+> This version (5) of the routine is for Probe Basic 0.6.0 and higher.  
+> For Probe Basic up to version 0.5.4-stable use tool_length_probe 4.0.1 : https://github.com/TooTall18T/tool_length_probe/releases/tag/4.0.1
 
 > [!NOTE]
 > With small changes this routine can be used with every GUI.
