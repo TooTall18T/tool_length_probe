@@ -22,7 +22,8 @@ Bei anderen Versionsständen können unter Umständen Unterschiede im Ablauf sta
 Die Funktionen der Routine sollten mit verminderter Geschwindigkeit getestet werden, bevor die Routine im Fertigungseinsatz genutzt wird.
 
 > [!NOTE]
-> Diese Version der Routine ist für Probe Basic 0.6.0 und höher.
+> Diese Version (5) der Routine ist für Probe Basic 0.6.0 und höher.  
+> Für Probe Basic bis Version 0.5.4-stable, tool_length_probe in Version 4.0.1 : benutzen https://github.com/TooTall18T/tool_length_probe/releases/tag/4.0.1
 
 > [!NOTE]
 > Mit kleinen Anpassungen, kann die Routine mit jeder GUI genutzt werden.
