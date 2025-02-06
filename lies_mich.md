@@ -1,5 +1,5 @@
 # Erklärung zur Nutzung der Werkzeugvermessungsroutine für Probe Basic und anderen GUIs von TooTall18T .  
-Version 5.0.0 stand 10.12.2024  
+Version 5.0.0 stand 06.02.2025  
 https://github.com/TooTall18T/tool_length_probe
 
   
