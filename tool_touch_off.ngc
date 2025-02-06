@@ -16,7 +16,7 @@ o<tool_touch_off> sub
 
 ;-1- Fixed parameters
 ;-MAIN-
-#<debug_mode> = 1		                ;The debug mode for troubleshooting is set here. 0=OFF, 1=log file . File in the machine's config folder.
+#<debug_mode> = 0		                ;The debug mode for troubleshooting is set here. 0=OFF, 1=log file . File in the machine's config folder.
 #<tool_touch_x_coords> = 0          ;Position of the length button in X
 #<tool_touch_y_coords> = 0          ;Position of the length button in Y
 #<tool_touch_z_coords> = 0          ;Position above the length button in Z
