@@ -1,5 +1,5 @@
-# Erklärung zur Nutzung der Werkzeugvermessungsroutine für Probe Basic von TooTall18T .  
-Version 4.0.1 stand 07.12.2024  
+# Erklärung zur Nutzung der Werkzeugvermessungsroutine für Probe Basic und anderen GUIs von TooTall18T .  
+Version 5.0.0 stand 06.02.2025  
 https://github.com/TooTall18T/tool_length_probe
 
   
@@ -17,13 +17,16 @@ https://github.com/TooTall18T/tool_length_probe
 > [!IMPORTANT]
 > Die Benutzung der Subroutinen geschieht auf eigene Gefahr!
 
-Die Routinen wurden mit den Versionen LinuxCNC 2.8 und Probe Basic 0.3.8 getestet.  
+Die Routinen wurden mit den Versionen LinuxCNC 2.9.3 und Probe Basic 0.6.0-018 getestet.  
 Bei anderen Versionsständen können unter Umständen Unterschiede im Ablauf statt finden.  
 Die Funktionen der Routine sollten mit verminderter Geschwindigkeit getestet werden, bevor die Routine im Fertigungseinsatz genutzt wird.
 
-> [!IMPORTANT]
-> Die Versionen bis 4.0.1 sind nur mit Probe Basic bis zur Version 0.5.4-stable kompatibel.  
-> Für Probe Basic 0.6.0 bitte die Version aus dem develop Branch nutzen: https://github.com/TooTall18T/tool_length_probe/tree/develop
+> [!NOTE]
+> Diese Version (5) der Routine ist für Probe Basic 0.6.0 und höher.  
+> Für Probe Basic bis Version 0.5.4-stable, tool_length_probe in Version 4.0.1 : benutzen https://github.com/TooTall18T/tool_length_probe/releases/tag/4.0.1
+
+> [!NOTE]
+> Mit kleinen Anpassungen, kann die Routine mit jeder GUI genutzt werden.
 
 Die Routinen "tool_touch_off.ngc" und "go_to_g30.ngc" basieren auf den gleichnamigen Routinen die bei Probe Basic dabei waren.
 
@@ -35,15 +38,15 @@ Darin ist auch ein Ablauf der Funktionen beschrieben.
 
 ---
 ## Funktionsumfang
-Die Subroutine dient dazu in LinuxCNC, mit der Oberfläche Probe Basic, Werkzeuge an einem stationären Werkzeuglängentaster einzumessen.  
-Dabei ist es egal, ob die Vermessung aus Probe Basic manuel gestartet wird, oder automatisch aus dem Fräsprogramm. Für den Ablauf gibt es optionale Einstellungen, die den Funktionsumfang zur original Subroutine erweitern.  
+Die Subroutine dient dazu in LinuxCNC, mit der Oberfläche Probe Basic oder jeder Anderen, Werkzeuge an einem stationären Werkzeuglängentaster einzumessen.  
+Dabei ist es egal, ob die Vermessung manuel gestartet wird, oder automatisch aus dem Fräsprogramm. Für den Ablauf gibt es optionale Einstellungen, die den Funktionsumfang zur original Subroutine erweitern.  
 
 Die Maschine wird automatisch frei gefahren und bewegt sich an den Werkzeugwechselpunkt. Nach der Bestätigung, dass das Werkzeug gewechselt ist, vermisst die Maschine das Werkzeug und kehrt ggf. automatisch an den Ausgangspunkt zurück.
 
 Dabei können Dinge wie die Benutzung der Werkzeugtabelle, die Häufigkeit von Vermessungsversuchen bei Fehlmessungen oder auch die Position an der das Werkzeug gewechslet wird einzeln eingestellt werden.
 
 Eine Übersicht der Erweiterungen gegenüber der original Subroutine:  
-- Aufruf mittels M-Befehl (M600)  
+- Aufruf mittels M-Befehl (M600 / M601)  
 - Nutzung Werkzeugtabelle  
 - Rückkehr zum Ausgangspunkt  
 - Pausieren am Ausgangspunkt  
@@ -54,11 +57,24 @@ Eine Übersicht der Erweiterungen gegenüber der original Subroutine:
 - Alternative Position zum Werkzeugwechseln  
 - Alternative Vermessungsposition für 3D-Taster
 
-Die Einstellungen in Probe Basic können weiterhin dort vorgenommen werden, die zusätzlichen werden am Anfang der Subroutine vorgenommen.
+Die Einstellungen in Probe Basic können weiterhin dort vorgenommen werden, die zusätzlichen werden am Anfang der Subroutine gemacht.  
+Bei der Benutzung einer anderen GUI werden alle Einstellungen in der Subroutine vorgenommen.
 
   
 ---
 ## Letzte Änderung:
+V5.0.0
+- readme.md / lies_mich.md - Information zur möglichen Benutzung mit anderen GUIs hinzugefügt
+- manual.md / anleitung.md - Den Ablauf der Konfiguration an Probe Basic 0.6.0 und für die allgemeine Verwendung angepasst
+- tool_touch_off.ngc:
+	- Aktualisierung der Parameternummern für Probe Basic 0.6.0
+	- Die direkte Parameterübergabe entfernt
+	- Den Parameter "traverse fr" für die Geschwindigkeit bei schnellen Bewegungen hinzugefügt
+	- "M50 Vorschubregelung" hinzugefügt, um die Manipulation der Vorschubsgeschwindigkeit, während des Prozesses, zu unterbinden.
+	- Die Ausrichtung des Versatz bei größeren Durchmessern aktualisiert
+- M600 - Den Modusparameter "#2000" hinzugefügt
+- M601 - Hinzugefügt, zum starten der Subroutine im manuellen Modus
+
 V4.0.1
 - Kompatibilitäts Hinweise hinzugefügt und Schreibfehler korrigiert.  
 
@@ -83,15 +99,6 @@ V3.0.1
 - readme.md / lies_mich.md
 	- Ansicht der Notes/Warning/Important Blöcke geändert.
 
-V3.0  
-- tool_touch_prog.ngc - Routine in die "tool_touch_off.ngc" Routine verschoben.  
-- tool_touch_off.ngc  - Speichern der erforderlichen Parameter aus der Oberfläche in der Variablendatei (4000-4005). Parameter müssen nicht mehr in die Dateien geschrieben werden.  
-- Debug-Modus mit Dateiausgabe eingefügt. Datei wird im Maschinenordner als "logfile.txt" gespeichert.  
-- Fester Parameter "#<brake_after_M600>" erweitert. Bei "1" pausiert die Maschine mittels M0 an der Position, an der der Werkzeugwechsel aufgerufen wurde. Bei "2" pausiert die Maschine statt dessen mittels M1, wenn dies auf der Oberfläche aktiviert ist. Bei wechsel auf gleiches Werkzeug wird ebenfalls pausiert.  
-- Den festen Parameter "#<use_tool_table>" hinzugefügt. Bei "0" wird immer eine "Neuvermessung" durchgeführt.  
-- #<go_back_to_start_pos> zu "Feste Parameter" verschoben.  
-- #<spindle_stop_m> zur Auswahl des M-Befehls zum stoppen der Spindel (5 / 500).
-
   
 ---
 ## Lizenz
@@ -109,5 +116,3 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-

@@ -1,21 +1,19 @@
 # Explanation of using the tool length probe subroutine for Probe Basic from TooTall18T .
-Version 4.0.1 as of 07.12.2024  
+Version 5.0.0 as of 10.12.2024  
 https://github.com/TooTall18T/tool_length_probe
 
 
 > [!IMPORTANT]
 > Use the subroutines at your own risk!
 
-> [!WARNING]
-> The positioning above the touch probe has been changed! The values of version 3.0 can not be use!
-
 
 > [!NOTE]
 > The German version of this document is called "[anleitung.md](anleitung.md)" and it is in the same folder.
 
 
-> [!IMPORTANT]
-> Versions up to 4.0.1 are only compatible with Probe Basic up to version 0.5.4-stable.
+> [!NOTE]
+> Use version 4.0.1 of this routine for Probe Basic up to version 0.5.4-stable.
+> Starting with version 0.6.0 of Probe Basic or any other GUI, version 5.0.0 or higher of this routine is required.
 
 ---
 ## Contents
@@ -30,7 +28,7 @@ https://github.com/TooTall18T/tool_length_probe
 ---
 ## Notes and Notices
 > [!NOTE]
-> The routines were tested with LinuxCNC 2.8 and Probe Basic 0.3.8 .
+> The routines were tested with LinuxCNC 2.9.3 and Probe Basic 0.6.0-18 .
 > With other versions, there may be differences in the process.
 
 > [!IMPORTANT]
@@ -54,25 +52,31 @@ Enter the following in the ".ini" under "[EMCIO]":
 TOOL_CHANGE_AT_G30 = 0			(Prevent the machine from moving to the G30-position when using the M6-command.)  
 TOOL_CHANGE_QUILL_UP = 0		(Prevent the machine from moving the z-axis to G53 Z0-position when using the M6-command.)  
 
+Delete or comment out the following line in the ".ini" under "[EMCIO]":  
+TOOL_CHANGE_POSITION = ......
+
+
 Copy file(s) into the folder that is entered in the ".ini" under "[RS274NGS]" "SUBROUTINE_PATH" (subroutines).  
-Enter the following parameters in the ".var" file, which is stored in the ".ini" under "PARAMETER_FILE":  
-3000 0  
-3001 0  
-3002 0  
-3003 0  
-3004 0  
-3005 0  
-> [!IMPORTANT]
-> All parameters must be in ascending order in the file.
-> If the parameters are not entered or entered in the wrong order, the parameters from the user interface cannot be saved permanently for the subroutine.
-> Should the parameters listed above already exist. Six other parameters must be chosen between 31 and 5000 and the routine rewritten.
+Check the following parameters in the ".var" file, which is stored in the ".ini" under "PARAMETER_FILE":  
+2000
+
+If the parameter is used, choose another one between 31 and 2999 and change the parameter (#2000) in the routine files.  
+The parameter does not need to be entered into the parameter file.
 
 ### Optional subroutines:
-- go_to_g30.ngc -- The original routine moves all axes at the same time to the G30-position. The new routine moves the z-axis free and than to the x and y coordinate of the G30-position. After that the z-axis moves to its position.
+- go_to_g30.ngc -- The original routine moves all axis at the same time to the G30-position. The new routine moves the z-axis free and than to the x and y coordinate of the G30-position. After that the z-axis moves to its position.
+> [!NOTE]
+> The G30-position can be used as tool change position. If this case is not wanted, set "#<disable_pre_pos>" to "1"
 
-- M600.ngc -- Subroutine for calling tool measurement from the CNC program.  
+- M600.ngc -- Subroutine for calling tool measurement automatic mode (with tool change) from the CNC program.  
 Enter the following in the ".ini" under "[RS274NGS]":  
 REMAP=M600 modalgroup=6 ngc=m600  
+> [!IMPORTANT]
+> A remap of "M6" is not recomended. The M6-command is used on different parts of Probe Basic and using a remap can leed to unforeseeable events.
+
+- M601.ngc -- Subroutine for calling tool measurement manual mode (without tool change) from the CNC program or by using other GUIs.  
+Enter the following in the ".ini" under "[RS274NGS]":  
+REMAP=M601 modalgroup=6 ngc=m601  
 > [!IMPORTANT]
 > A remap of "M6" is not recomended. The M6-command is used on different parts of Probe Basic and using a remap can leed to unforeseeable events.
 
@@ -98,22 +102,23 @@ REMAP=M500 modalgroup=7 ngc=m500
 7. Write the G53-coordinates into the subroutine at "-1- Fixed parameters" / "-MAIN-" / "#<tool_touch_x_coords>", "#<tool_touch_y_coords>" and "#<tool_touch_z_coords>".  
 ![G53-position](./images/machine-coordinates.jpg)  
 8. Set the z-axis to zero.
-9. Move the z-axis up. Choose a distance that the longest tool has some space to the tool touch probe. This position is the starting position for new tools. Write the z-position from the current coordinate system into [OFFSETS] "{spindle zero}". This value can be changed at any time.  
+9. Move the z-axis up. Choose a distance that the longest tool has some space to the tool touch probe. This position is the starting position for new tools. Write the z-position from the current coordinate system into [PROBING] [TOOL SETTER] "{spindle zero}". This value can be changed at any time.  
 ![Position new tools](./images/new_tool_position.jpg)  
 ![Spindle zero](./images/spindle_zero.jpg)  
 
-Under [OFFSETS] fill in the following parameters:  
+For Probe Basic under [PROBING] [TOOL SETTER] fill in the following parameters:  
+For other GUIs fill the parameters inside the routine. Overwrite the parameters #3004-#3013.
 | Parameter | Description  |
 | -------  | -----  |
 | fast probe fr  | Speed in units/min for the first probe.  |
 | slow probe fr  | Speed in units/min for the second probing. If the value is 0, only the first probing is carried out.  |
+| traverse fr | Speed in units/min for fast movements of the routine. |
 | z max travel  | Maximum distance travelled by the Z-axis during the measurement of a known tool. Value should be greater than "#<tool_min_dis>". |
 | spindle zero  | Minimum distance between spindle and tool probe for new tools. |
 | retract dist  | Distance that the Z-axis moves up after the first touch before the second touch takes place. A value must be entered, regardless of whether the slow measurement takes place or not. |
+| tool offset direction | For measuring tools with larger diameter. Direction of the offset. 0=X- 1=X+ 2=Y- 3=Y+ |
 
-After the parameters are filled in press 1x [TOUCH OFF CURRENT TOOL] under [TOOL] to save the parameters in the variable file. No measurement is started. Only one message appears.  
-> [!IMPORTANT]
-> After changing the parameters, [TOUCH OFF CURRENT TOOL] must be pressed once again.  
+For Probe Basic: After the parameters are filled in press [UPDATE TOOL SETTER PARAMETERS] to save the parameters in the variable file. 
 
 ![Position old tools](./images/old_tool_position.jpg)  
 
@@ -134,9 +139,8 @@ Adjust the following parameters under "-2- Fixed parameters" in the "tool_touch_
 | #< addreps> | Number of extra repetitions. If fast probe failed, the machine moves back to the tool change position and the tool can be readjusted. |
 | #< lasttry> | If "1" the machine do a probing at the last repetition without the tool table. #< addreps> must be min "1". |
 |  |  |
-| ` OPTIONS: TOOL DIAMETER ` |
+| ` OPTIONS: TOOL DIAMETER ` | For measuring tools with larger diameter. |
 | #<offset_diameter> | Tool diameter from when a offset should take place. 0=OFF |
-| #<offset_direction> | Direction of the offset. 0=X+ 1=X- 2=Y+ 3=Y- |
 | #<offset_value> | How much of the tool diameter should move in percent. |
 |  |  |
 | ` OPTIONS: TOOL EDGE-FINDER ` |
@@ -157,22 +161,17 @@ Adjust the following parameters under "-2- Fixed parameters" in the "tool_touch_
 ---
 ## Flow of the routine
 
-### 1 Sequence of the sub-routine for manual measurement via [TOUCH OFF CURRENT TOOL]
-When called, the subroutine differentiates between three cases: new parameters, new tool (length <=0mm), known tool (length >0mm) .  
+### 1 Sequence of the sub-routine for manual measurement via [TOUCH OFF CURRENT TOOL] or M601
+When called, the subroutine differentiates between two cases: new tool (length <=0mm), known tool (length >0mm) .  
 
-#### Case 1.1 new parameters:  
-If you have changed a parameter for tool measurement under [OFFSETS], you must press [TOUCH OFF CURRENT TOOL] once under [TOOL]. This saves the current parameters in the variable file. A measurement is not carried out, instead the message "New parameters saved!" appears.
-In this way, the parameters do not have to be entered again manually in the M600 subroutine.
-
-
-#### Case 1.2 and 1.3:  
+#### Case 1.1 and 1.2:  
 The Z-axis moves up to the machine zero point, if necessary switches off the spindle (stop function selectable via "#<spindle_stop_m>") and then moves to the tool probe position.  
-The fixed parameter "#<use_tool_table>" can be used to select whether the tool table is to be used (1). If the tool table is not used (0), the machine always makes one "remeasurement" (case 1.2).  
-Proceeding to case 1.2 or 1.3.
+The fixed parameter "#<use_tool_table>" can be used to select whether the tool table is to be used (1). If the tool table is not used (0), the machine always makes one "remeasurement" (case 1.1).  
+Proceeding to case 1.1 or 1.2.
 
 
-#### Case 1.2 new tool (length <=0mm):  
-The Z-axis moves with G0 to the height above the tool probe, which is defined via "{spindle zero}".  
+#### Case 1.1 new tool (length <=0mm):  
+The Z-axis moves at the "{traverse fr}" speed to the height above the tool probe, which is defined via "{spindle zero}".  
 This value must be greater than the longest tool length to be expected, but less than the maximum way between touch probe and z-zero.
 The Z-axis then moves down at the "{fast probe fr}" speed until the tool probe switches or the Z-axis has covered the "{spindle zero}" distance.  
 The latter leads to an error message: "Tool length offset probe failed!"  
@@ -182,9 +181,9 @@ The Z-axis then moves to the machine zero point.
 The machine now stops during manual measurement.
 
 
-#### Case 1.3 known tool (length >0mm):  
-If the "#<use_tool_table>" parameter is "1", this sequence is used for known tools (length >0mm). Otherwise case 1.2 is used.  
-Starting from the old tool length, the Z axis moves the tool with G0 as high over the probe as defined under "#<tool_min_dis>".  
+#### Case 1.2 known tool (length >0mm):  
+If the "#<use_tool_table>" parameter is "1", this sequence is used for known tools (length >0mm). Otherwise case 1.1 is used.  
+Starting from the old tool length, the Z axis moves the tool at the "{traverse fr}" speed as high over the probe as defined under "#<tool_min_dis>".  
 "#<tool_min_dis>" should not be defined too small in order to be able to absorb differences when inserting the tool.  
 The Z-axis then moves down at the "{fast probe fr}" speed until the tool probe switches or the Z-axis has covered the "{z max travel}" distance.  
 The latter leads to an error message: "Tool length offset probe failed!"  
@@ -200,7 +199,7 @@ When called, the subroutine differentiates between four cases: new tool (length 
 
 
 #### Case 2.1 and 2.2:  
-The measurement of new and known tools works the same way in the measurement that is started by the CNC program. See "Case 1.2" and "Case 1.3" above.  
+The measurement of new and known tools works the same way in the measurement that is started by the CNC program. See "Case 1.1" and "Case 1.2" above.  
 However, the machine moves to the tool change position (G30 or above the touch probe) and ask for the new tool before moving to the touch probe. See also "change position".  
 In addition, you can use the fixed parameter "#<go_back_to_start_pos>" (1) in the routine to select that the machine, after the measurement, returns to the point where the routine was called. So you don't have to program the return path from the tool probe in the CNC program.  
 Moves the machine back due to "#<go_back_to_start_pos>". Can be selected via "#<brake_after_M600>" (0/1/2) whether the machine waits at the point before
@@ -233,8 +232,8 @@ Is the selected tool already in the machine. The message "Same tool" is output. 
 The debug mode writes the "logfile.txt" file inside the configurations directory. In this file some machine and subroutines parameter will be saved to help with trouble shooting. The file will be overwritten every time.   
 
 #### Change position
-The tool change position (G30) can be set with [OFFSETS] [SET TOOL TOUCH OFF POSITION].  
-To do this, move the machine to the desired position and press [SET TOOL TOUCH OFF POSITION]. This position can be changed at any time if needed. To use this position for the routine "#<disable_pre_pos>" must be set to "0".  
+The tool change position (G30) can be set with [PROBING] [TOOL SETTER] [SET TOOL TOUCH OFF POS].  
+To do this, move the machine to the desired position and press [SET TOOL TOUCH OFF POS]. This position can be changed at any time if needed. To use this position for the routine "#<disable_pre_pos>" must be set to "0".  
 If this function will be used, the machine moves to the G30 X-, Y- and Z-coordinate in case of a measurement started with "M600" and asks there for the tool change.  
 After that the machine moves to the touch probe position.  
 When the tool table is used and the additional repetitions ("#< addreps>") is set to a min. of "1", the machine moves to this position after the fast measurement failed. This happens at the manual and automatic measurement.  
@@ -246,10 +245,10 @@ If the measurement with an active tool table fails during the fast measurement d
 
 #### Last try
 For the "Last try" function, "#< addreps>" must be set to at least "1". If the measurements have failed except for the last attempt, a new measurement can be carried out using this function.  
-If "#< addreps>" and "#< lasttry>" are each set to "1" when the tool table is used and the fast measurement according to case 1.3 or 2.2 fails, the machine directly carries out a "new measurement" according to case 1.2 or 2.1 .
+If "#< addreps>" and "#< lasttry>" are each set to "1" when the tool table is used and the fast measurement according to case 1.2 or 2.2 fails, the machine directly carries out a "new measurement" according to case 1.1 or 2.1 .
 
 #### Tool diameter offset
-For tools with a larger diameter, this function can be used to create a center offset.
+For tools with a larger diameter, this function can be used to create a center offset. The direction of this offset can be set by [PROBING] [TOOL SETTER] [TOOL OFFSET DIRECTION].
 
 #### Edge-finder
 If it is not possible to measure a 3D/edge-finder using the tool probe. An alternative survey position can be defined for this. The height difference between the measurement position and the tool probe must be determined and entered in "#<finder_diff_z>". The sign indicates the difference in the axial direction. "-" = lower than tool probe, "+" = higher than tool probe.
@@ -257,4 +256,4 @@ If it is not possible to measure a 3D/edge-finder using the tool probe. An alter
 ---
 ## Further information:  
 > [!NOTE]
-> The "xy max travel" parameter is not used in the routine.
+> The "xy max travel", "tool diam probe" and "tool diam offset" parameters are not used in the routine.
