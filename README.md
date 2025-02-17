@@ -1,5 +1,5 @@
 # Explanation of using the tool length probe subroutine for Probe Basic and other GUIs from TooTall18T .  
-Version 5.0.0 as of 06.02.2025  
+Version 5.0.1 as of 17.02.2025  
 https://github.com/TooTall18T/tool_length_probe
 
 ---
@@ -63,6 +63,9 @@ By using other GUIs all settings need to be made in the subroutine.
 
 ---
 ## Last change:
+V5.0.1
+- tool_touch_off.ngc: Added "M50 P1" to returns to unlock the feed lock
+
 V5.0.0
 - readme.md / lies_mich.md - Added information about possible use with other GUIs
 - manual.md / anleitung.md - Adapted the configuration process to Probe Basic 0.6.0 and for general use
