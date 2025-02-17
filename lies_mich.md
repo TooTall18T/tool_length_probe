@@ -64,7 +64,7 @@ Bei der Benutzung einer anderen GUI werden alle Einstellungen in der Subroutine 
 ---
 ## Letzte Änderung:
 V5.0.1
-- tool_touch_off.ngc: "M50 P1" zu den returns hinzugefügt
+- tool_touch_off.ngc: "M50 P1" zu den returns hinzugefügt, um die Vorschubssperre aufzuheben
 
 V5.0.0
 - readme.md / lies_mich.md - Information zur möglichen Benutzung mit anderen GUIs hinzugefügt
