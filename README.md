@@ -63,8 +63,9 @@ By using other GUIs all settings need to be made in the subroutine.
 
 ---
 ## Last change:
-V5.0.0
+V5.0.1
 - tool_touch_off.ngc: Added "M50 P1" to returns to unlock the feed lock
+
 V5.0.0
 - readme.md / lies_mich.md - Added information about possible use with other GUIs
 - manual.md / anleitung.md - Adapted the configuration process to Probe Basic 0.6.0 and for general use
