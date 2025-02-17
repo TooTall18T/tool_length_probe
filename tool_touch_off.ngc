@@ -1,6 +1,6 @@
 ;Subprogram for manual tool change with measurement of the tool.
-;Version date: 2024-12-10
-;Version: 5.0.0
+;Version date: 2025-02-17
+;Version: 5.0.1
 ;https://github.com/TooTall18T/tool_length_probe
 
 ;This subprogram is based on the original subprogram "tool_touch_off.ngc" that came with Probe Basic.
@@ -140,6 +140,7 @@ o<90> if [#<mode> EQ 1]
     o<94> elseif [#<brake_after_M600> EQ 2]
       M01			    ;If option is selected and [M01 BREAK] is selected in the interface, the machine pauses.
     o<94> endif
+    M50 P1
     (LOG, END same tool)
     (LOGCLOSE)
     o<tool_touch_off> return
@@ -156,6 +157,7 @@ o<100> if [#<tool_selected> EQ 0]
   G53 G1 F#<traverse_fr> Z0
   M6 T#<tool_selected> 
   G49
+  M50 P1
   (LOG, END M6 T0)
   (LOGCLOSE)
   o<tool_touch_off> return
