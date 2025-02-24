@@ -2640,7 +2640,7 @@ color: white;
                     <bool>false</bool>
                    </property>
                    <property name="rules" stdset="0">
-                    <string>[{&quot;name&quot;: &quot;enable&quot;, &quot;property&quot;: &quot;Enable&quot;, &quot;expression&quot;: &quot;True if ch[0] and ch[1] == 1  and ch[2] and not ch[3] else False&quot;, &quot;channels&quot;: [{&quot;url&quot;: &quot;status:on&quot;, &quot;trigger&quot;: true}, {&quot;url&quot;: &quot;status:task_mode&quot;, &quot;trigger&quot;: true}, {&quot;url&quot;: &quot;status:all_axes_homed&quot;, &quot;trigger&quot;: true}, {&quot;url&quot;: &quot;settings:tool-length-probe.disable-change-position&quot;, &quot;trigger&quot;: true}]}]</string>
+                    <string>[{&quot;name&quot;: &quot;enable&quot;, &quot;property&quot;: &quot;Enable&quot;, &quot;expression&quot;: &quot;True if ch[0] and ch[1] == 1  and ch[2] else False&quot;, &quot;channels&quot;: [{&quot;url&quot;: &quot;status:on&quot;, &quot;trigger&quot;: true}, {&quot;url&quot;: &quot;status:task_mode&quot;, &quot;trigger&quot;: true}, {&quot;url&quot;: &quot;status:all_axes_homed&quot;, &quot;trigger&quot;: true}]}]</string>
                    </property>
                   </widget>
                  </item>
