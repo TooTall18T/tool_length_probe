@@ -1,5 +1,5 @@
 # Erklärung zur Nutzung der Werkzeugvermessungsroutine für Probe Basic und anderen GUIs von TooTall18T .  
-Version 5.0.0 stand 06.02.2025  
+Version 6.0.0 stand 23.02.2025  
 https://github.com/TooTall18T/tool_length_probe
 
   
@@ -11,24 +11,31 @@ https://github.com/TooTall18T/tool_length_probe
 - Funktionsumfang
 - Letzte Änderungen
 - Lizenz
-      
+	  
 ---
 ## Anmerkungen und Hinweise
-> [!IMPORTANT]
+> [!IMPORTANT]  
 > Die Benutzung der Subroutinen geschieht auf eigene Gefahr!
 
-Die Routinen wurden mit den Versionen LinuxCNC 2.9.3 und Probe Basic 0.6.0-018 getestet.  
+Die Routinen wurden mit den Versionen LinuxCNC 2.9.3 und Probe Basic 0.6.0-37.dev getestet.  
 Bei anderen Versionsständen können unter Umständen Unterschiede im Ablauf statt finden.  
 Die Funktionen der Routine sollten mit verminderter Geschwindigkeit getestet werden, bevor die Routine im Fertigungseinsatz genutzt wird.
 
-> [!NOTE]
-> Diese Version (5) der Routine ist für Probe Basic 0.6.0 und höher.  
-> Für Probe Basic bis Version 0.5.4-stable, tool_length_probe in Version 4.0.1 : benutzen https://github.com/TooTall18T/tool_length_probe/releases/tag/4.0.1
+> [!NOTE]  
+> Diese Version der Routine ist für Probe Basic 0.6.0-37.dev und höher.
+> Für ältere Versionen von Probe Basic:
+> PB0.6.0 Version 5.0 benutzen
+> PB0.5.4 oder vorher Version 4.0.1 benutzen
 
-> [!NOTE]
+> [!NOTE]  
+> QTPYVCP 5.0.2-5.dev oder höher ist erfoderlich.
+
+> [!NOTE]  
 > Mit kleinen Anpassungen, kann die Routine mit jeder GUI genutzt werden.
 
-Die Routinen "tool_touch_off.ngc" und "go_to_g30.ngc" basieren auf den gleichnamigen Routinen die bei Probe Basic dabei waren.
+> [!NOTE]  
+> Die Routinen "tool_touch_off.ngc" und "go_to_g30.ngc" basieren auf den gleichnamigen 
+> Routinen die bei Probe Basic dabei waren.
 
 ---   
 ## Anleitung und Funktionsablauf
@@ -38,7 +45,7 @@ Darin ist auch ein Ablauf der Funktionen beschrieben.
 
 ---
 ## Funktionsumfang
-Die Subroutine dient dazu in LinuxCNC, mit der Oberfläche Probe Basic oder jeder Anderen, Werkzeuge an einem stationären Werkzeuglängentaster einzumessen.  
+Die Subroutine dient dazu in LinuxCNC, mit der Oberfläche Probe Basic oder jeder Anderen, Werkzeuge an einem stationären Werkzeuglängentaster einzumessen. Ein Benutzertab für Probe Basic ist integriert.  
 Dabei ist es egal, ob die Vermessung manuel gestartet wird, oder automatisch aus dem Fräsprogramm. Für den Ablauf gibt es optionale Einstellungen, die den Funktionsumfang zur original Subroutine erweitern.  
 
 Die Maschine wird automatisch frei gefahren und bewegt sich an den Werkzeugwechselpunkt. Nach der Bestätigung, dass das Werkzeug gewechselt ist, vermisst die Maschine das Werkzeug und kehrt ggf. automatisch an den Ausgangspunkt zurück.
@@ -53,16 +60,28 @@ Eine Übersicht der Erweiterungen gegenüber der original Subroutine:
 - Abschalten der Werkzeugspindel mit wählbarem M-Befehl  
 - Zusätzliche Wiederholungen bei fehlgeschlagenen Messversuchen  
 - Letzte Vermessung ohne Werkzeugtabelle  
-- Wekzeugversatz bei größeren Durchmessern  
+- Werkzeugversatz bei größeren Durchmessern  
 - Alternative Position zum Werkzeugwechseln  
 - Alternative Vermessungsposition für 3D-Taster
 
-Die Einstellungen in Probe Basic können weiterhin dort vorgenommen werden, die zusätzlichen werden am Anfang der Subroutine gemacht.  
+Die Einstellungen werden in Probe Basic über einen eigenen Benutzertab vorgenommen.  
 Bei der Benutzung einer anderen GUI werden alle Einstellungen in der Subroutine vorgenommen.
 
   
 ---
 ## Letzte Änderung:
+V6.0.0
+- readme.md / lies_mich.md - Information zur möglichen Benutzung mit anderen GUIs hinzugefügt
+- manual.md / anleitung.md - Den Ablauf der Konfiguration an Probe Basic 0.6.0-37.dev und für die allgemeine Verwendung angepasst
+- Einen Benutzertab für Probe Basic hinzugefügt
+- tool_touch_off.ngc:
+	- Die Kommunikation an den Benutzertab angepasst
+	- Das Verfahren zur Positionierung bei größeren Durchmessern überarbeitet
+	- Die LOG Befehle an die neue Ansteuerung angepasst.  
+
+V5.0.1
+- tool_touch_off.ngc: "M50 P1" zu den returns hinzugefügt, um die Vorschubssperre aufzuheben  
+
 V5.0.0
 - readme.md / lies_mich.md - Information zur möglichen Benutzung mit anderen GUIs hinzugefügt
 - manual.md / anleitung.md - Den Ablauf der Konfiguration an Probe Basic 0.6.0 und für die allgemeine Verwendung angepasst
@@ -116,3 +135,5 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+

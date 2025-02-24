@@ -2,7 +2,8 @@ o<m500> sub
 ;Subroutine to stop a spindle and pause for a certain time.
 ;For spindles without feedback.
 ;The pause time will only be use if the spindle was on.
-;Stand: 2023-12-30
+;Stand: 2025-02-24
+;https://github.com/TooTall18T/tool_length_probe
 
 #<spindle_on> = #<_spindle_on>
 
@@ -12,7 +13,7 @@ o<100> if [#<spindle_on> EQ 1]
 ;    (msg, Spindle is ON)
     G4 P4.0
 o<100> endif
-;(msg, Spindel AUS)
+;(msg, Spindle OFF)
 
 o<m500> endsub
 

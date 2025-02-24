@@ -1,5 +1,5 @@
 # Explanation of using the tool length probe subroutine for Probe Basic and other GUIs from TooTall18T .  
-Version 5.0.0 as of 06.02.2025  
+Version 6.0.0 as of 23.02.2025  
 https://github.com/TooTall18T/tool_length_probe
 
 ---
@@ -12,23 +12,31 @@ https://github.com/TooTall18T/tool_length_probe
 
 ---
 ## Notes and notices
-> [!IMPORTANT]
+> [!IMPORTANT]  
 > Use the subroutines at your own risk!
 
-The routines were tested with LinuxCNC 2.9.3 and Probe Basic 0.6.0-018 .
+The routines were tested with LinuxCNC 2.9.3 and Probe Basic 0.6.0-37.dev .
 With other versions, there may be differences in the process.
 The functions of the routine should be tested at reduced speed before using the routine in production.
 
-> [!NOTE]
-> This version (5) of the routine is for Probe Basic 0.6.0 and higher.  
-> For Probe Basic up to version 0.5.4-stable use tool_length_probe 4.0.1 : https://github.com/TooTall18T/tool_length_probe/releases/tag/4.0.1
+> [!NOTE]  
+> This version of the routine is for Probe Basic 0.6.0-37.dev and higher.
+> For older versions of Probe Basic:
+> PB0.6.0 use 5.0
+> PB0.5.4 and lower use 4.0.1
 
-> [!NOTE]
+> [!NOTE]  
+> QTPYVCP 5.0.2-5.dev or higher is required.
+
+
+> [!NOTE]  
 > With small changes this routine can be used with every GUI.
 
-The routines "tool_touch_off.ngc" and "go_to_g30.ngc" are based on the routines of the same name that came with Probe Basic.
+> [!NOTE]  
+> The routines "tool_touch_off.ngc" and "go_to_g30.ngc" are based on the routines of the same name that came with 
+> Probe Basic.
 
-> [!NOTE]
+> [!NOTE]  
 > The German version of this document is called "[lies_mich.md](lies_mich.md)" and it is in the same folder.
 
 ---
@@ -39,7 +47,7 @@ A sequence of functions is also described there.
 
 ---
 ## Range of function
-The subroutine is used to measure tools on a stationary tool length probe in LinuxCNC with the GUI Probe Basic or other GUIs.
+The subroutine is used to measure tools after a manual tool change on a stationary tool length probe in LinuxCNC with the GUI Probe Basic or other GUIs. Its included a user tab for Probe Basic.  
 It doesn't matter whether the measurement is started manually or automatically from the milling program. There are optional settings for the process that extend the functionality of the original subroutine.  
   
 The machine is automatically freed and moves to the tool change point. After confirming that the tool has been changed, the machine measures the tool and, if necessary, automatically returns to the starting point.  
@@ -58,11 +66,23 @@ An overview of the extensions compared to the original subroutine:
 - Alternative position for changing tools
 - Alternative measurement position for 3D probes
   
-The settings in Probe Basic can still be made there, the additional ones are made at the beginning of the subroutine.  
-By using other GUIs all settings need to be made in the subroutine.
+In Probe Basic, the settings are made via the user tab.  
+In other GUIs, the settings must be made in the routine.
 
 ---
 ## Last change:
+V6.0.0
+- readme.md / lies_mich.md - Added information about possible use with other GUIs
+- manual.md / anleitung.md - Adapted the configuration process to Probe Basic 0.6.0-37.dev and for general use
+- Added an user tab for Probe Basic
+- tool_touch_off.ngc:
+    - Adjust the comunication with user tab
+    - The procedure for moving larger diameters has been revised.
+    - The LOG commands have been adapted to the new control.  
+
+V5.0.1
+- tool_touch_off.ngc: Added "M50 P1" to returns to unlock the feed lock
+
 V5.0.0
 - readme.md / lies_mich.md - Added information about possible use with other GUIs
 - manual.md / anleitung.md - Adapted the configuration process to Probe Basic 0.6.0 and for general use
@@ -116,3 +136,4 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
+

@@ -1,9 +1,9 @@
 o<m600> sub
-;Subprogram to start the "tool_touch_off 5.x.x" subroutine in automatic mode.
-;Stand: 2024-12-10
+;Subprogram to start the "tool_touch_off 6.x.x" subroutine in automatic mode.
+;Stand: 2025-02-24
 ;https://github.com/TooTall18T/tool_length_probe
 
-#2000 = 1
+#2950 = 1
 o<tool_touch_off> call
 
 
