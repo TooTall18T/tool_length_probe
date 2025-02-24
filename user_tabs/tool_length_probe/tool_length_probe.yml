@@ -1,0 +1,238 @@
+
+settings:
+
+  tool-length-probe.break-after-same-tool:
+    description: ???
+    default_value: 0
+    persistent: true
+
+  tool-length-probe.break-after-change-tool:
+    description: ???
+    default_value: 0
+    persistent: true
+
+  tool-length-probe.x-tool-change-position:
+    description: ???
+    default_value: 0.0
+    persistent: true
+    min_value: -10000
+    max_value: 10000
+
+  tool-length-probe.y-tool-change-position:
+    description: ???
+    default_value: 0.0
+    persistent: true
+    min_value: -10000
+    max_value: 10000
+
+  tool-length-probe.z-tool-change-position:
+    description: ???
+    default_value: 0.0
+    persistent: true
+    min_value: -10000
+    max_value: 10000
+
+  
+  tool-length-probe.x-tool-setter-position:
+    description: ???
+    default_value: 0.0
+    persistent: true
+    min_value: -10000
+    max_value: 10000
+
+  tool-length-probe.y-tool-setter-position:
+    description: ???
+    default_value: 0.0
+    persistent: true
+    min_value: -10000
+    max_value: 10000
+
+  tool-length-probe.z-tool-setter-position:
+    description: ???
+    default_value: 0.0
+    persistent: true
+    min_value: -10000
+    max_value: 10000
+
+
+  tool-length-probe.x-tool-probe-position:
+    description: ???
+    default_value: 0.0
+    persistent: true
+    min_value: -10000
+    max_value: 10000
+
+  tool-length-probe.y-tool-probe-position:
+    description: ???
+    default_value: 0.0
+    persistent: true
+    min_value: -10000
+    max_value: 10000
+
+  tool-length-probe.probe-tool-number:
+    description: ???
+    default_value: 0
+    persistent: true
+    min_value: 0
+    max_value: 99999
+
+  tool-length-probe.probe-z-offset:
+    description: ???
+    default_value: 0.0
+    persistent: true
+    min_value: -1000
+    max_value: 1000
+
+  tool-length-probe.spindle-nose-height:
+    description: distance from home to   tool setter for the spindle nose.
+    default_value: 0.0
+    persistent: true
+    min_value: -10000
+    max_value: 10000
+
+  tool-length-probe.fast-probe-fr:
+    description: tool probe fast feedrate.
+    default_value: 0.0
+    persistent: true
+    min_value: 0
+    max_value: 10000
+
+
+  tool-length-probe.slow-probe-fr:
+    description: tool probe slow feedrate.
+    default_value: 0.0
+    persistent: true
+    min_value: 0
+    max_value: 10000
+
+
+  tool-length-probe.traverse-fr:
+    description: tool probe traverse feedrate.
+    default_value: 0.0
+    persistent: true
+    min_value: 0
+    max_value: 100000
+
+  
+  tool-length-probe.z-max-travel:
+    description: maximumm z travel while probing before erroring out.
+    default_value: 0.0
+    persistent: true
+    min_value: 0
+    max_value: 10000
+
+
+  tool-length-probe.xy-max-travel:
+    description: maximumm xy travel while probing before erroring out.
+    default_value: 0.0
+    persistent: true
+    min_value: -10000
+    max_value: 10000
+
+
+  tool-length-probe.retract-distance:
+    description: distance tool retracts after fast probe move.
+    default_value: 0.0
+    persistent: true
+    min_value: 0
+    max_value: 50
+
+
+  tool-length-probe.tool-min-distance:
+    description: ???
+    default_value: 0.0
+    persistent: true
+    min_value: 0
+    max_value: 50
+
+
+  tool-length-probe.diameter-offset:
+    description: ???
+    default_value: 0
+    persistent: true
+    min_value: 0
+    max_value: 100
+
+
+  tool-length-probe.brake-after-same-tool:
+    description: ???
+    default_value: 0
+    persistent: true
+    min_value: 0
+    max_value: 2
+
+  tool-length-probe.brake-after-tool-change:
+    description: ???
+    default_value: 0
+    persistent: true
+    min_value: 0
+    max_value: 2
+
+
+  tool-length-probe.add-repetitions:
+    description: ???
+    default_value: 0
+    persistent: true
+    min_value: 0
+    max_value: 100
+
+
+  tool-length-probe.spindle-stop-m:
+    description: ???
+    default_value: 5
+    persistent: true
+    min_value: 0
+    max_value: 999
+
+
+  tool-length-probe.disable-change-position:
+    description: ???
+    persistent: true
+
+
+  tool-length-probe.setter-offset-direction-back:
+    description: probe tool diameter to offset direction back.
+    persistent: true
+
+
+  tool-length-probe.setter-offset-direction-right:
+    description: probe tool diameter to offset direction right.
+    persistent: true
+
+
+  tool-length-probe.setter-offset-direction-front:
+    description: probe tool diameter to offset direction front.
+    persistent: true
+
+
+  tool-length-probe.setter-offset-direction-left:
+    description: probe tool diameter to offset direction left.
+    persistent: true
+
+
+  tool-length-probe.use-tool-table:
+    description: ???
+    persistent: true
+
+
+  tool-length-probe.go-back-to-start-pos:
+    description: ???
+    persistent: true
+
+
+  tool-length-probe.last-try:
+    description: ???
+    persistent: true
+
+
+  tool-length-probe.diameter-probe:
+    description: probes tool diameter.
+    persistent: true
+
+
+  tool-length-probe.debug-mode:
+    description: ???
+    persistent: true
+
+
+
