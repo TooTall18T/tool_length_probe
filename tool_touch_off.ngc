@@ -1,6 +1,6 @@
 ;Subprogram for manual tool change with measurement of the tool.
-;Version date: 2025-02-17
-;Version: 5.0.1
+;Version date: 2025-03-08
+;Version: 5.0.2
 ;https://github.com/TooTall18T/tool_length_probe
 
 ;This subprogram is based on the original subprogram "tool_touch_off.ngc" that came with Probe Basic.
@@ -13,6 +13,9 @@
 
 
 o<tool_touch_off> sub
+;Ensures that the routine is not run when checking the CNC program. 
+;This can sometimes lead to unjustified errors.
+o<400> if [#<_task> EQ 1]
 
 ;-1- Fixed parameters
 ;-MAIN-
@@ -133,6 +136,7 @@ M50 P0
 ;If the tool in the spindle is the same as the one selected, no change is made. Except for manual measurement.
 o<90> if [#<mode> EQ 1]
   o<92> if [#<tool_in_spindle> EQ #<tool_selected>]
+    G43
     (DEBUG, Same tool)
     ;(DEBUG, Selbes Werkzeug)
     o<94> if [ #<brake_after_M600> EQ 1]     
@@ -375,6 +379,7 @@ M50 P1
 
 (LOG, END)
 (LOGCLOSE)
+o<400> endif
 o<tool_touch_off> endsub
 
 M2 (end program)

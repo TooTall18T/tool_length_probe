@@ -1,5 +1,5 @@
 # Erklärung zur Nutzung der Werkzeugvermessungsroutine für Probe Basic und anderen GUIs von TooTall18T .  
-Version 5.0.1 stand 17.02.2025  
+Version 5.0.2 stand 08.03.2025  
 https://github.com/TooTall18T/tool_length_probe
 
   
@@ -63,6 +63,11 @@ Bei der Benutzung einer anderen GUI werden alle Einstellungen in der Subroutine 
   
 ---
 ## Letzte Änderung:
+V5.0.2
+- tool_touch_off.ngc:
+	- "G43" zu Selbes Werkzeug hinzugefügt, um sicher zu stellen, dass G43 beim Beenden der Routine AN ist.
+ 	- Überbrückung der Routine, wenn kein Programm läuft, hinzugefügt.
+
 V5.0.1
 - tool_touch_off.ngc: "M50 P1" zu den returns hinzugefügt, um die Vorschubssperre aufzuheben
 
