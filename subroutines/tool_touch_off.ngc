@@ -135,6 +135,7 @@ M50 P0
 ;If the tool in the spindle is the same as the one selected, no change is made. Except for manual measurement.
 o<90> if [#<mode> EQ 1]
   o<92> if [#<tool_in_spindle> EQ #<tool_selected>]
+    G43
     (DEBUG, Same tool)
     ;(DEBUG, Selbes Werkzeug)
     o<94> if [ #<brake_after_same_tool> EQ 1]     
