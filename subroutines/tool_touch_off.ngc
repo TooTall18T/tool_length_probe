@@ -1,6 +1,6 @@
 ;Subprogram for manual tool change with measurement of the tool.
-;Version date: 2025-02-14
-;Version: 6.0.0
+;Version date: 2025-11-16
+;Version: 6.0.0-testing
 ;https://github.com/TooTall18T/tool_length_probe
 
 ;; TODO
@@ -282,7 +282,11 @@ o<200> do
 
   ;-120- Move to Z start position for length measurement
   G53 G1 F#<traverse_fr> Z#<probe_start_pos_z>
-  
+
+  ;-125- Start spindle when it's not 3d-probe
+  o<171> if [#<tool_selected> NE #<finder_number>]
+    M3 S200
+  o<171> endif
   
   ;-130- Fast probe
   G91
@@ -342,7 +346,7 @@ o<120> if [#<slow_probe_fr> GT 0]
   o<130> endif
 
 o<120> endif
-
+M5
 
 ;-170- Define new tool length
 (define new tool length offset parameters)
