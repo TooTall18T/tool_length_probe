@@ -1,5 +1,5 @@
 ;Subprogram for manual tool change with measurement of the tool.
-;Version date: 2025-02-14
+;Version date: 2026-04-03
 ;Version: 6.0.0
 ;https://github.com/TooTall18T/tool_length_probe
 
@@ -138,6 +138,7 @@ o<90> if [#<mode> EQ 1]
     G43
     (DEBUG, Same tool)
     ;(DEBUG, Selbes Werkzeug)
+	G43  H #<tool_in_spindle>
     o<94> if [ #<brake_after_same_tool> EQ 1]     
 	    M00					;Interrupts the program flow until you press Start again
     o<94> elseif [#<brake_after_same_tool> EQ 2]
